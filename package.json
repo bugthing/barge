@@ -1,0 +1,26 @@
+{
+  "name": "barge",
+  "version": "0.0.1",
+  "description": "Manage docker containers",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "react": "^0.12.2",
+    "webpack": "^1.6.0"
+  },
+  "devDependencies": {
+    "es6-loader": "^0.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:bugthing/barge.git"
+  },
+  "author": "Benjamin Martin",
+  "license": "MIT",
+  "private": true
+}
