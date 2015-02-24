@@ -11,4 +11,9 @@ Development
 
 ### Build
 
-    webpack
+    webpack --progress --colors --watch
+
+References
+----------
+
+[webpack](http://webpack.github.io/docs/tutorials/getting-started/)
