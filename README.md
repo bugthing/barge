@@ -6,14 +6,37 @@ Manage docker containers.
 Development
 -----------
 
-    sudo npm install webpack -g
+You need to have node installed. As the modules are downloaded
+and installed locally and you need to be able to reference
+the executables, ensure you set add `./node_modules/.bin` to
+your PATH. (e.g `export PATH="node_modules/.bin:$PATH" `)
+
     npm install
 
 ### Build
 
-    webpack --progress --colors --watch
+You can get webpack to build the app and place the resulting
+code in `./dist/`
+
+    webpack
+
+You can view the result by pointing your browser at the
+resulting `./dist/index.html`
+
+
+### Serve
+
+To make development easier, you can use a server to build, serve
+and auto-reload to application.
+
+    webpack-dev-server --content-base dist/ --hot
+
+Now point your browser at:
+
+    http://localhost:8080/
 
 References
 ----------
 
 [webpack](http://webpack.github.io/docs/tutorials/getting-started/)
+[webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html)

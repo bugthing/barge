@@ -1,6 +1,9 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+
 module.exports = {
-  entry: './app/app.es6',
+  entry: {
+    app: ['webpack/hot/dev-server', './app/app.es6']
+  },
   output: {
     path: 'dist',
     filename: 'bundle.js',
@@ -14,5 +17,12 @@ module.exports = {
       { test: /\.css$/, loader: "style!css" }
     ]
   },
-  plugins: [new HtmlWebpackPlugin({title: 'Barge'})]
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'app/index_template.html',
+      assets: {
+        app: "dist/bundle.js"
+      }
+    })
+  ]
 };

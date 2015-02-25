@@ -1,1 +1,1 @@
-module.exports = "It works from content.js.";
+module.exports = "content - how normal and weby";
