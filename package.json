@@ -6,16 +6,21 @@
   "directories": {
     "doc": "docs"
   },
-  "dependencies": {},
+  "dependencies": {
+    "react": "^0.13.1"
+  },
   "devDependencies": {
+    "babel-core": "^4.7.16",
+    "babel-loader": "^4.2.0",
     "css-loader": "^0.9.1",
-    "es6-loader": "^0.2.0",
     "html-webpack-plugin": "^1.1.0",
+    "localStorage": "^1.0.3",
     "style-loader": "^0.8.3",
     "webpack": "^1.6.0",
     "webpack-dev-server": "^1.7.0"
   },
   "scripts": {
+    "start": "webpack-dev-server --content-base dist/ --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

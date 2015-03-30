@@ -2,18 +2,18 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: {
-    app: ['webpack/hot/dev-server', './app/app.es6']
+    app: ['webpack/hot/dev-server', './app/app.js']
   },
   output: {
     path: 'dist',
     filename: 'bundle.js',
   },
   resolve: {
-    extensions: ["", ".js", ".es6"]
+    extensions: ["", ".js"]
   },
   module: {
     loaders: [
-      { test: /\.es6$/, loader: 'es6-loader' },
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'},
       { test: /\.css$/, loader: "style!css" }
     ]
   },
