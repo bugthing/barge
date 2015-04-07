@@ -1,6 +1,7 @@
 
 import React from 'react/addons'
 import Docker from '../docker'
+import dockerPinger from '../dockerPinger';
 
 export default React.createClass({
     getInitialState: () => {
@@ -8,10 +9,11 @@ export default React.createClass({
     },
     handleChange: function(event) {
       let dockerHost = event.target.value
-      if(Docker.ping(dockerHost)) {
-        Docker.host = dockerHost
-        this.setState({value: Docker.host});
-      }
+      let that = this
+      dockerPinger(dockerHost).then( (host) => {
+        Docker.host = host
+        that.setState({value: Docker.host});
+      })
     },
     resetHost: function(event) {
       Docker.host = null

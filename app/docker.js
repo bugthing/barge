@@ -4,10 +4,6 @@ class Docker {
     constructor() {
         console.log('new docker')
     }
-    ping(host) {
-        // TODO - see if we can contact docker (via host) .. return boolean
-        return true
-    }
     set host(host) {
         console.log('setting docker host:'+host)
         if ( host == null ){
