@@ -35,6 +35,10 @@ Now point your browser at:
 
     http://localhost:8080/
 
+Currently u need to turn off web-security as I have not got CORS right (yet):
+
+    google-chrome-stable --disable-web-security
+
 References
 ----------
 
