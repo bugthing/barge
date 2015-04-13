@@ -4,15 +4,17 @@ import Docker from '../docker'
 import DockerMenu from './DockerMenu'
 
 export default React.createClass({
-    getInitialState: () => {
+    getInitialState: function() {
+      this.getContainers()
       return {value: Docker.host}
     },
     handleChange: function(event) {
       let dockerHost = event.target.value
       let that = this
 
-      Docker.fetch('_ping', dockerHost).then( (host) => {
+      Docker.fetch('_ping', dockerHost).then( (res) => {
         Docker.host = dockerHost
+        this.getContainers()
         that.setState({value: dockerHost})
       })
     },
@@ -20,16 +22,21 @@ export default React.createClass({
       Docker.host = null
       this.setState({value: Docker.host})
     },
+
+    getContainers: function() {
+      if(Docker.host) {
+        let that = this
+        Docker.fetch('containers/json').then( (containers) => {
+          that.setProps({containers: containers})
+        })
+      }
+    },
+
     render: function() {
         let value = this.state.value;
         let that = this
 
         if(Docker.host) {
-
-            Docker.fetch('containers/json').then( (containers) => {
-              that.setProps({containers: containers})
-            })
-
             return  <div>
                 Docker Host: {Docker.host}
                 <a onClick={this.resetHost} > x </a>

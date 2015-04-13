@@ -23,10 +23,14 @@ class Docker {
                 }
             };
 
-            http.get(options, function (res) {
-                res.on("end", function () {
+            http.get(options, (res) => {
+                let data = ''
+                res.on("data", (chunk) => { data += chunk });
+                res.on("end", () => {
+                    let obj = {}
+                    //obj = JSON.parse(data)
                     if(res.statusCode == 200) {
-                        console.log('CONTAINERS GOOD')
+                        console.log('CONTAINERS GOOD:' + obj)
                         resolve(['123','432'])
                     } else {
                         console.log('CONTAINERS BAD')

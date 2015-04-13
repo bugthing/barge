@@ -1,20 +1,24 @@
 
 import React from 'react/addons'
 
-export default React.createClass({
-    getDefaultProps: () => {
-      return {containers: []}
-    },
+class DockerMenu extends React.Component {
 
-    render: function() {
+    tick() {
+        console.log("tick:")
+    }
+
+    render() {
       return <div>
           <ul>
             {this.props.containers.map( (item, i) => {
-                return <li key={i}>
+                return <li key={i} onClick={this.tick.bind(this)}>
                     {i} ---> {item}
                 </li>
                 }, this)}
           </ul>
       </div>
     }
-})
+}
+DockerMenu.defaultProps = { containers: [] }
+
+export default DockerMenu
