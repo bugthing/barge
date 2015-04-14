@@ -19,7 +19,11 @@ class Docker {
                 port: 4375,
                 path: '/' + path,
                 headers: {
-                    'Origin': 'http://localhost'
+                    'Origin': 'http://www.127-0-0-1.org.uk:8080',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-Registry-Auth': 'dGhpbmc6c3R1ZmY='
                 }
             };
 
