@@ -7,7 +7,7 @@ export default React.createClass({
 
     getInitialState: function() {
         this.getContainers()
-        return {hostValue: Docker.host, portValue: Docker.port}
+        return {hostValue: Docker.host, portValue: Docker.port, containers: null}
     },
 
     setPort: function(event) {
@@ -21,7 +21,7 @@ export default React.createClass({
     reset: function(event) {
         Docker.host = null
         Docker.port = null
-        this.setState({hostValue: Docker.host, portValue: Docker.port})
+        this.setState({hostValue: Docker.host, portValue: Docker.port, containers: null})
     },
 
     componentWillUpdate: function(nextProps, nextState) {
@@ -40,20 +40,18 @@ export default React.createClass({
       if(Docker.host && Docker.port) {
         let that = this
         Docker.fetch('containers/json').then( (containers) => {
-          that.setProps({containers: containers})
+          that.setState({containers: containers})
         })
       }
     },
 
     render: function() {
-        let value = this.state.value;
-        let that = this
 
-        if(Docker.host && Docker.port) {
+        if(this.state.containers) {
             return <div>
                 Docker Host: {Docker.host} {Docker.port}
                 <a onClick={this.reset} > x </a>
-                <DockerMenu containers={this.props.containers}/>
+                <DockerMenu containers={this.state.containers}/>
               </div>
         } else {
             return <div>
