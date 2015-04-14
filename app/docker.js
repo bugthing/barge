@@ -50,6 +50,15 @@ class Docker {
         }
     }
 
+    pingAndSet(newHost, newPort, callBack) {
+        let that = this
+        this.fetch('_ping', newHost, newPort).then( (res) => {
+            that.host = newHost
+            that.port = newPort
+            callBack()
+        })
+    }
+
     set host(host) {
         console.log('setting docker host:'+host)
         if ( host == null ) {

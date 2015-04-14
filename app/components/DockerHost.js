@@ -26,12 +26,9 @@ export default React.createClass({
 
     componentWillUpdate: function(nextProps, nextState) {
         if((nextState.hostValue !== this.state.hostValue) || (nextState.portValue !== this.state.portValue)) {
-            console.log('Pinging:' + nextState.hostValue + ' -- ' + nextState.portValue)
             let that = this
-            Docker.fetch('_ping', nextState.hostValue, nextState.portValue).then( (res) => {
-              Docker.host = nextState.hostValue
-              Docker.port = nextState.portValue
-              that.getContainers()
+            Docker.pingAndSet(nextState.hostValue, nextState.portValue, () => {
+                that.getContainers()
             })
         }
     },
