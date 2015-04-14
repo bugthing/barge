@@ -4,27 +4,46 @@ import Docker from '../docker'
 import DockerMenu from './DockerMenu'
 
 export default React.createClass({
+
     getInitialState: function() {
       this.getContainers()
-      return {value: Docker.host}
+      return {hostValue: Docker.host, portValue: Docker.port}
     },
-    handleChange: function(event) {
+
+    setPort: function(event) {
+      let dockerPort = event.target.value
+      let that = this
+      console.log("setPort - " + dockerPort)
+      Docker.fetch('_ping', this.state.hostValue, dockerPort).then( (res) => {
+        that.setState({portValue: dockerPort})
+        Docker.host = this.state.hostValue
+        Docker.port = this.state.portValue
+        that.getContainers()
+      })
+      that.setState({portValue: dockerPort})
+    },
+
+    setHost: function(event) {
       let dockerHost = event.target.value
       let that = this
-
-      Docker.fetch('_ping', dockerHost).then( (res) => {
-        Docker.host = dockerHost
-        this.getContainers()
-        that.setState({value: dockerHost})
+      console.log("setHost - " + dockerHost)
+      Docker.fetch('_ping', dockerHost, this.state.portValue).then( (res) => {
+        that.setState({hostValue: dockerHost})
+        Docker.host = this.state.hostValue
+        Docker.port = this.state.portValue
+        that.getContainers()
       })
+      that.setState({hostValue: dockerHost})
     },
-    resetHost: function(event) {
+
+    reset: function(event) {
       Docker.host = null
-      this.setState({value: Docker.host})
+      Docker.port = null
+      this.setState({hostValue: Docker.host, portValue: Docker.port})
     },
 
     getContainers: function() {
-      if(Docker.host) {
+      if(Docker.host && Docker.port) {
         let that = this
         Docker.fetch('containers/json').then( (containers) => {
           that.setProps({containers: containers})
@@ -36,16 +55,17 @@ export default React.createClass({
         let value = this.state.value;
         let that = this
 
-        if(Docker.host) {
+        if(Docker.host && Docker.port) {
             return  <div>
-                Docker Host: {Docker.host}
-                <a onClick={this.resetHost} > x </a>
+                Docker Host: {Docker.host} {Docker.port}
+                <a onClick={this.reset} > x </a>
                 <DockerMenu containers={this.props.containers}/>
               </div>
         } else {
             return  <div>
-                Enter the docker host here:
-                <input type="text" value={value} onChange={this.handleChange} />
+                Docker host information:
+                Host:<input type="text" value={this.state.hostValue} onChange={this.setHost} />
+                Port:<input type="text" value={this.state.portValue} onChange={this.setPort} />
               </div>
         }
     }
