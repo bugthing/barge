@@ -7,6 +7,12 @@ class Docker {
 
         super(props);
 
+        this.headers = { 'Origin': 'http://www.127-0-0-1.org.uk:8080',
+                         'X-Requested-With': 'XMLHttpRequest',
+                         'Content-Type': 'application/json',
+                         'Accept': 'application/json',
+                         'X-Registry-Auth': 'dGhpbmc6c3R1ZmY=' }
+
         this.fetch  = function(path, arg1, arg2) {
           let that = this
 
@@ -22,26 +28,20 @@ class Docker {
                 hostname: dockerHost,
                 port: dockerPort,
                 path: '/' + path,
-                headers: {
-                    'Origin': 'http://www.127-0-0-1.org.uk:8080',
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'X-Registry-Auth': 'dGhpbmc6c3R1ZmY='
-                }
+                headers: that.headers
             };
 
             http.get(options, (res) => {
                 let data = ''
                 res.on("data", (chunk) => { data += chunk });
                 res.on("end", () => {
-                    let obj = {}
-                    //obj = JSON.parse(data)
                     if(res.statusCode == 200) {
-                        console.log('CONTAINERS GOOD:' + obj)
-                        resolve(['123','432'])
+                        let obj = {}
+                        if(data != 'OK') obj = JSON.parse(data)
+                        console.log('FETCH GOOD:' + obj)
+                        resolve(obj)
                     } else {
-                        console.log('CONTAINERS BAD')
+                        console.log('FETCH BAD')
                         reject()
                     }
                 });

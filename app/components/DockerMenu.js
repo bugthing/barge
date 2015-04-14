@@ -12,7 +12,7 @@ class DockerMenu extends React.Component {
           <ul>
             {this.props.containers.map( (item, i) => {
                 return <li key={i} onClick={this.tick.bind(this)}>
-                    {i} ---> {item}
+                    {i} ---> {item.Names[0]}
                 </li>
                 }, this)}
           </ul>
