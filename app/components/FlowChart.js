@@ -2,25 +2,25 @@
 import React from 'react/addons'
 import d3 from 'd3'
 
-//var json = {
-//    flow: [
-//        {
-//            name: 'Node A',
-//            sections: [
-//                {
-//                    name: 'Section A'
-//                },
-//                {
-//                    name: 'Section B',
-//                    joins: ['Node B']
-//                }
-//            ]
-//        },
-//        {
-//            name: 'Node B'
-//        }
-//    ]
-//}
+var json = {
+    flow: [
+        {
+            name: 'Node A',
+            sections: [
+                {
+                    name: 'Section A'
+                },
+                {
+                    name: 'Section B',
+                    joins: ['Node B']
+                }
+            ]
+        },
+        {
+            name: 'Node B'
+        }
+    ]
+}
 
 class NodeJoin extends React.Component {
     render() {
@@ -39,17 +39,24 @@ Node.propTypes = { cx: React.PropTypes.number, cy: React.PropTypes.number, r: Re
 Node.defaultProps = { cx: 40, cy: 60, r: 10 }
 
 class DataFlow extends React.Component {
+
+    uniqueNodes() {
+        var nodes = []
+        this.props.chart.flow.map(function(node, i) {
+            if(typeof(nodes[node.name]) !== 'object') nodes[node.name] = { }
+        });
+        return [{x: 100, y:100}, {x: 200, y:200}]
+    }
+
     render() {
-        var i = 1 
-        var nodes = this.props.nodes.map(function(node, i) {
-            i = i + 1 
-            return <Node cx={node} key={i} />
+        var nodes = this.uniqueNodes().map(function(node, i) {
+            return <Node cx={node.x} cy={node.y} key={i} />
         })
         return  <g>{nodes}</g>
     }
 }
-DataFlow.propTypes = { nodes: React.PropTypes.array }
-DataFlow.defaultProps = { nodes: [] }
+DataFlow.propTypes = { chart: React.PropTypes.object }
+DataFlow.defaultProps = { chart: {} }
 
 class Chart extends React.Component {
     render() {
@@ -60,7 +67,7 @@ class Chart extends React.Component {
 class FlowChart extends React.Component {
     render() {
       return <Chart width={this.props.width} height={this.props.height}>
-            <DataFlow nodes={[20, 150]} />
+            <DataFlow chart={json} />
             <NodeJoin />
         </Chart>
     }
