@@ -17,12 +17,9 @@ module.exports = {
       { test: /\.css$/, loader: "style!css" }
     ]
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: 'app/index_template.html',
-      assets: {
-        app: "dist/bundle.js"
-      }
-    })
-  ]
+  plugins: [new HtmlWebpackPlugin({
+    title: 'Custom template', 
+    template: 'app/index_template.html',
+    inject: 'body'
+  })]
 };
