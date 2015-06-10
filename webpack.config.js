@@ -18,7 +18,7 @@ module.exports = {
     ]
   },
   plugins: [new HtmlWebpackPlugin({
-    title: 'Custom template', 
+    title: 'Barge',
     template: 'app/index_template.html',
     inject: 'body'
   })]
