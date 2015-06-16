@@ -7,4 +7,4 @@ import FlowChart from './components/FlowChart'
 
 //React.render(<DockerHost />, document.body);
 
-React.render(<FlowChart width={600} height={300} />, document.body);
+React.render(<FlowChart width={600} height={300} />, document.getElementById('content'));
