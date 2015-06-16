@@ -1,26 +1,6 @@
 import React from 'react/addons'
 import d3 from 'd3'
 
-var json = {
-    flow: [
-        {
-            name: 'Node A',
-            sections: [
-                {
-                    name: 'Section A'
-                },
-                {
-                    name: 'Section B',
-                    joins: ['Node B']
-                }
-            ]
-        },
-        {
-            name: 'Node B'
-        }
-    ]
-}
-
 class NodeJoin extends React.Component {
     render() {
         var path = "M 10 25 L 10 75 L 60 75 L 10 25"
@@ -44,7 +24,7 @@ class DataFlow extends React.Component {
         this.props.chart.flow.map(function(node, i) {
             if(typeof(nodes[node.name]) !== 'object') nodes[node.name] = { }
         });
-        return [{x: 100, y:100}, {x: 200, y:200}]
+        return [{x: 100, y:10}, {x: 200, y:60}]
     }
 
     render() {
@@ -66,10 +46,9 @@ class Chart extends React.Component {
 class FlowChart extends React.Component {
     render() {
       return <Chart width={this.props.width} height={this.props.height}>
-            <DataFlow chart={json} />
+            <DataFlow chart={this.props.chart} />
             <NodeJoin />
         </Chart>
     }
 }
-
 export default FlowChart
