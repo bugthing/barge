@@ -7,7 +7,7 @@ import ServiceChooser from './components/Aform'
 
 var sections = [
     { 
-        name: 'Web Development', 
+        name: 'Some Things', 
         price: 300 
     },
     { 
@@ -16,7 +16,6 @@ var sections = [
     }
 ];
 React.render(<ServiceChooser items={ sections } />, document.getElementById('content'));
-
 
 var chartjson = {
     flow: [

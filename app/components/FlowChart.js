@@ -4,7 +4,6 @@ import d3 from 'd3'
 class NodeJoin extends React.Component {
     render() {
         var path = "M 10 25 L 10 75 L 60 75 L 10 25"
-
         return <path d={path} stroke="red" strokeWidth="2" fill="none" />
     }
 }
@@ -45,7 +44,7 @@ class Chart extends React.Component {
 
 class FlowChart extends React.Component {
     render() {
-      return <Chart width={this.props.width} height={this.props.height}>
+        return <Chart width={this.props.width} height={this.props.height}>
             <DataFlow chart={this.props.chart} />
             <NodeJoin />
         </Chart>

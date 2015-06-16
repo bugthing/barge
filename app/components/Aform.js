@@ -1,71 +1,56 @@
-// This is more complex example that uses two components -
-// a service chooser form, and the individual services inside it.
 
 import React from 'react/addons'
 
-var ServiceChooser = React.createClass({
+class ServiceChooser extends React.Component {
 
-    getInitialState: function(){
-        return { total: 0 };
-    },
+    constructor() {
+        this.state = { total: 0 };
+        this.addOn = this.addOn.bind(this)
+    }
 
-    addTotal: function( price ){
-        this.setState( { total: this.state.total + price } );
-    },
+    addOn(price) {
+        this.setState({total: this.state.total + price}); 
+    }
 
-    render: function() {
-
-        var self = this;
-
-        var services = this.props.items.map(function(s){
-
-            // Create a new Service component for each item in the items array.
-            // Notice that I pass the self.addTotal function to the component.
-
-            return <Service name={s.name} price={s.price} active={s.active} addTotal={self.addTotal} />;
+    render() {
+    
+        var services = this.props.items.map( (s) => {
+            return <Service name={s.name} price={s.price} addOn={this.addOn}/>;
         });
 
         return <div>
                     <h1>A Form type</h1>
-                    
                     <div id="services">
                         {services}
-
                         <p id="total">Total <b>${this.state.total.toFixed(2)}</b></p>
-
                     </div>
-
-                </div>;
+               </div>;
 
     }
-});
+}
+ServiceChooser.propTypes = { items: React.PropTypes.array }
+ServiceChooser.defaultProps = { items: [] }
 
+class Service extends React.Component {
 
-var Service = React.createClass({
+    constructor() {
+        this.state = { active: false };
+    }
 
-    getInitialState: function(){
-        return { active: false };
-    },
+    clickHandler() {
+        this.state.active =!this.state.active;
+        this.props.addOn( this.state.active ? this.props.price : -this.props.price );
+    }
 
-    clickHandler: function (){
-
-        var active = !this.state.active;
-
-        this.setState({ active: active });
-        
-        // Notify the ServiceChooser, by calling its addTotal method
-        this.props.addTotal( active ? this.props.price : -this.props.price );
-
-    },
-
-    render: function(){
-
-        return  <p className={ this.state.active ? 'active' : '' } onClick={this.clickHandler}>
+    render() {
+        return  <p className={ this.state ? 'active' : '' } onClick={this.clickHandler.bind(this)}>
                     {this.props.name} <b>${this.props.price.toFixed(2)}</b>
                 </p>;
 
     }
 
-});
+}
+Service.propTypes = { price: React.PropTypes.number, name: React.PropTypes.string, addOn: React.PropTypes.function }
+Service.defaultProps = { price: 0, name: '', addOn: function(){} }
 
 export default ServiceChooser;
