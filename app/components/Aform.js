@@ -1,4 +1,3 @@
-
 import React from 'react/addons'
 
 class ServiceChooser extends React.Component {
@@ -12,6 +11,10 @@ class ServiceChooser extends React.Component {
         this.setState({total: this.state.total + price});
     }
 
+    clickHandler() {
+        this.props.formNext()
+    }
+
     render() {
 
         var services = this.props.items.map( (s) => {
@@ -19,17 +22,18 @@ class ServiceChooser extends React.Component {
         });
 
         return <div>
-                    <h1>A Form type</h1>
-                    <div id="services">
-                        {services}
-                        <p id="total">Total <b>${this.state.total.toFixed(2)}</b></p>
-                    </div>
+                   <h1>A Form type</h1>
+                   <div id="services">
+                       {services}
+                       <p id="total">Total <b>${this.state.total.toFixed(2)}</b></p>
+                   </div>
+                   <p onClick={this.clickHandler.bind(this)}>Next</p>
                </div>;
 
     }
 }
-ServiceChooser.propTypes = { items: React.PropTypes.array }
-ServiceChooser.defaultProps = { items: [] }
+ServiceChooser.propTypes = { items: React.PropTypes.array, formNext: React.PropTypes.func }
+ServiceChooser.defaultProps = { items: [], formNext: function() {} }
 
 class Service extends React.Component {
 
@@ -43,7 +47,7 @@ class Service extends React.Component {
     }
 
     render() {
-        return  <p className={ this.state ? 'active' : '' } onClick={this.clickHandler.bind(this)}>
+        return  <p className="{ this.state ? 'active' : '' } fade" onClick={this.clickHandler.bind(this)}>
                     {this.props.name} <b>${this.props.price.toFixed(2)}</b>
                 </p>;
 
@@ -52,5 +56,5 @@ class Service extends React.Component {
 }
 Service.propTypes = { price: React.PropTypes.number, name: React.PropTypes.string, addOn: React.PropTypes.func }
 Service.defaultProps = { price: 0, name: '', addOn: function(price){} }
-
+    
 export default ServiceChooser;

@@ -14,6 +14,13 @@ var sections = [
     }
 ];
 
+var sections2 = [
+    { 
+        name: 'Loads a things', 
+        price: 2090 
+    }
+];
+
 var chartjson = {
     flow: [
         {
@@ -36,7 +43,27 @@ var chartjson = {
 
 
 class Root extends React.Component {
+
+    constructor() {
+        this.state = { formNumber: 1 };
+        this.formNext = this.formNext.bind(this) // required so we can pass the function up to Service
+    }
+
+    formNext() {
+        console.log('things:' + this.state.formNumber)
+        this.setState({formNumber: this.state.formNumber + 1});
+    }
+
     render() {
+
+        console.log('things2:' + this.state.formNumber)
+        var form
+        if(this.state.formNumber == 2) {
+            form = <ServiceChooser items={ sections2 } formNext={this.formNext} />
+        } else {
+            form = <ServiceChooser items={ sections } formNext={this.formNext} />
+        }
+
         return <div>
         <nav className="light-blue lighten-1" role="navigation">
           <div className="nav-wrapper container">
@@ -50,7 +77,7 @@ class Root extends React.Component {
         </div>
         <div className="container">
           <div id='content' className="section">
-            <ServiceChooser items={ sections } />
+            {form}
           </div>
         </div>
         <footer className="page-footer red">
