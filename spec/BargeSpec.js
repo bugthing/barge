@@ -2,7 +2,7 @@
 
 import React from 'react/addons';
 
-import ServiceChooser from '../app/components/Aform.js'
+import Root from '../app/components/Root.js'
 
 var TestUtils = React.addons.TestUtils;
 
@@ -11,7 +11,7 @@ describe('Aform', () => {
 
   beforeEach(() => {
     var sections = [{ name: 'Some Things', price: 300 }]
-    component = TestUtils.renderIntoDocument(<ServiceChooser items={ sections } />);
+    component = TestUtils.renderIntoDocument(<Root />);
   });
 
   it('should work as expected', () => {
