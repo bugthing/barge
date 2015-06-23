@@ -1,5 +1,9 @@
 import React from 'react/addons'
 
+import ActionCreators from '../action-creators'
+
+import Store from '../store'
+
 class ServiceChooser extends React.Component {
 
     constructor() {
@@ -15,6 +19,24 @@ class ServiceChooser extends React.Component {
         this.props.formNext()
     }
 
+    clickNowHandler() {
+        console.log('NOW Clicked')
+        ActionCreators.moveForm({ item1: 'item one' });
+    }
+
+    formChange() {
+      console.log('FORM CHANGED')
+    }
+
+    componentDidMount() {
+      Store.addChangeListener(this.formChange);
+    }
+
+    componentWillUnmount() {
+      console.log('unmounted')
+      Store.removeChangeListener(this.formChange);
+    }
+
     render() {
 
         var services = this.props.items.map( (s) => {
@@ -28,6 +50,7 @@ class ServiceChooser extends React.Component {
                        <p id="total">Total <b>${this.state.total.toFixed(2)}</b></p>
                    </div>
                    <p onClick={this.clickHandler.bind(this)}>Next</p>
+                   <p onClick={this.clickNowHandler.bind(this)}>NOW</p>
                </div>;
 
     }
