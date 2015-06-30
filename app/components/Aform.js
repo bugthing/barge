@@ -7,6 +7,7 @@ import Store from '../store'
 class ServiceChooser extends React.Component {
 
     constructor() {
+        super()
         this.state = { total: 0 };
         this.addOn = this.addOn.bind(this) // required so we can pass the function up to Service
     }
@@ -61,6 +62,7 @@ ServiceChooser.defaultProps = { items: [], formNext: function() {} }
 class Service extends React.Component {
 
     constructor() {
+        super()
         this.state = { active: false };
     }
 

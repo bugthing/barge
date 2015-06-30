@@ -3,7 +3,7 @@ var AppDispatcher = require('./app-dispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
-var forms = [];
+var suites = [];
 
 var Store = assign({}, EventEmitter.prototype, {
 
@@ -19,8 +19,8 @@ var Store = assign({}, EventEmitter.prototype, {
     this.removeListener('change', callback);
   },
 
-  getAll: function() {
-    return forms;
+  getSuite: function() {
+    return suites[0];
   }
 });
 
@@ -28,8 +28,8 @@ AppDispatcher.register(function(action) {
 
   switch(action.actionType) {
 
-    case 'MOVE_FORM':
-      forms.push(action.form);
+    case 'START_SUITE':
+      suites.push(action.suite);
       Store.emitChange();
       break;
 

@@ -1,11 +1,11 @@
-var AppDispatcher = require('./app-dispatcher');
+import AppDispatcher from './app-dispatcher'
 
-module.exports = {
+export default {
 
-  moveForm: function(form) {
+  startSuite: function(suite) {
     var action = {
-      actionType: 'MOVE_FORM',
-      form: form
+      actionType: 'START_SUITE',
+      suite: suite
     };
 
     AppDispatcher.dispatch(action);

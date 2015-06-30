@@ -4,18 +4,24 @@ import React from 'react/addons';
 
 import Root from '../app/components/Root.js'
 
-var TestUtils = React.addons.TestUtils;
+let TestUtils = React.addons.TestUtils;
 
-describe('Aform', () => {
-  var component;
+describe('Start Page', () => {
+  let rootDOMNode
 
   beforeEach(() => {
-    var sections = [{ name: 'Some Things', price: 300 }]
-    component = TestUtils.renderIntoDocument(<Root />);
-  });
+    let component = TestUtils.renderIntoDocument(<Root />)
+    rootDOMNode = React.findDOMNode(component)
+  })
 
-  it('should work as expected', () => {
-    //expect(component.getDOMNode().textContent).toMatch(/Some/);
-    expect(component).toBeTruthy()
-  });
-});
+  it('has a start button', () => {
+    expect(rootDOMNode.textContent).toMatch(/Start Here/);
+  })
+
+  it('starts when you click the button', () => {
+    TestUtils.Simulate.click(rootDOMNode)
+    console.log(rootDOMNode.textContent)
+    expect(rootDOMNode.textContent).toMatch(/Form/);
+  })
+
+})

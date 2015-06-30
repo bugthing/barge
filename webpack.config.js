@@ -14,7 +14,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'},
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', query: { optional: ["es7.decorators", "es7.classProperties"] } },
       { test: /\.css$/, loader: "style!css" }
     ]
   },
@@ -27,7 +27,7 @@ module.exports = {
       inject: 'body'
     }),
     new HtmlWebpackPlugin({
-      chunks: ['app', 'test'],
+      chunks: ['test'],
       filename: 'test.html',
       template: 'app/test_template.html',
       inject: 'body'
