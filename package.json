@@ -19,13 +19,15 @@
     "css-loader": "^0.9.1",
     "html-webpack-plugin": "^1.1.0",
     "localStorage": "^1.0.3",
+    "protractor": "^2.1.0",
     "style-loader": "^0.8.3",
     "webpack": "^1.6.0",
     "webpack-dev-server": "^1.7.0"
   },
   "scripts": {
     "start": "webpack-dev-server --content-base dist/ --hot",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "e2e": "protractor e2e-spec/protractor.conf.js"
   },
   "repository": {
     "type": "git",
