@@ -1,10 +1,17 @@
 import React from 'react/addons'
 
 import ActionCreators from '../action-creators'
-
 import Store from '../store'
 
 class ServiceChooser extends React.Component {
+    static propTypes = {
+        items: React.PropTypes.array,
+        formNext: React.PropTypes.func
+    }
+    static defaultProps = {
+        items: [],
+        formNext: function() {}
+    }
 
     constructor() {
         super()
@@ -53,13 +60,20 @@ class ServiceChooser extends React.Component {
                    <p onClick={this.clickHandler.bind(this)}>Next</p>
                    <p onClick={this.clickNowHandler.bind(this)}>NOW</p>
                </div>;
-
     }
 }
-ServiceChooser.propTypes = { items: React.PropTypes.array, formNext: React.PropTypes.func }
-ServiceChooser.defaultProps = { items: [], formNext: function() {} }
 
 class Service extends React.Component {
+    static propTypes = {
+        price: React.PropTypes.number,
+        name: React.PropTypes.string,
+        addOn: React.PropTypes.func
+    }
+    static defaultProps = {
+        price: 0,
+        name: '',
+        addOn: function(price){}
+    }
 
     constructor() {
         super()
@@ -75,11 +89,7 @@ class Service extends React.Component {
         return  <p className="{ this.state ? 'active' : '' } fade" onClick={this.clickHandler.bind(this)}>
                     {this.props.name} <b>${this.props.price.toFixed(2)}</b>
                 </p>;
-
     }
-
 }
-Service.propTypes = { price: React.PropTypes.number, name: React.PropTypes.string, addOn: React.PropTypes.func }
-Service.defaultProps = { price: 0, name: '', addOn: function(price){} }
-    
+
 export default ServiceChooser;
