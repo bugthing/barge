@@ -21,7 +21,7 @@ class StartHere extends React.Component {
         return <div className="container">
           <div className="row center"></div>
           <div className="row center">
-            <a className="waves-effect waves-light btn" onClick={this.clickStartHandler.bind(this)}>Start Here</a>
+            <a className="waves-effect waves-light btn e2e-startbutton" onClick={this.clickStartHandler.bind(this)}>Start Here</a>
           </div>
           <div className="row center"></div>
         </div>

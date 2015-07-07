@@ -14,7 +14,7 @@ describe('Barge App', function() {
 
   it('has a start button and that shows the chart', function() {
     browser.get('/');
-    var e = element(by.css('a.btn'));
+    var e = element(by.css('a.e2e-startbutton'));
     expect(e.getText()).toBe('START HERE');
     e.click();
     var e2 = element(by.css('div#chart'));

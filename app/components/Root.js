@@ -1,5 +1,5 @@
 import React from 'react/addons'
-
+import Css from '../style.css'
 import MainContent from './MainContent'
 
 class Root extends React.Component {
