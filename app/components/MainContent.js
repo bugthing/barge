@@ -26,8 +26,7 @@ class MainContent extends React.Component {
     }
 
     render() {
-        console.log('render:' + this.state)
-        if(this.state) {
+        if(this.state && this.state.suite) {
             return <FormWithChart />
         } else {
             return <StartHere />

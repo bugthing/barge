@@ -1,5 +1,6 @@
 import React from 'react/addons'
 import Css from '../style.css'
+import SideBarContent from './SideBarContent'
 import MainContent from './MainContent'
 
 class Root extends React.Component {
@@ -13,7 +14,14 @@ class Root extends React.Component {
           </div>
         </nav>
 
-        <MainContent />
+     	<div className="row">
+        	<div className="col s1">
+        		<SideBarContent />
+        	</div>
+        	<div className="col s11">
+        		<MainContent />
+        	</div>
+      	</div>
 
         <footer className="page-footer red">
           <div className="footer-copyright">

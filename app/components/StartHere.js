@@ -12,6 +12,9 @@ let suite = {
         }
     ],
 
+    container: {
+    },
+
     chartjson: {
         flow: [
             {

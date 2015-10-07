@@ -3,14 +3,14 @@ import React from 'react/addons'
 import Store from '../store'
 
 import FlowChart from './FlowChart'
-import AnyForm from './AnyForm'
+import ContainerForm from './ContainerForm'
 
 class FormWithChart extends React.Component {
 
     render() {
 
         var chartjson = Store.getSuite().chartjson;
-        var form = Store.getSuite().form;
+        var container = Store.getSuite().container;
 
         return <div>
           <div className="section no-pad-bot" id="index-banner">
@@ -20,7 +20,7 @@ class FormWithChart extends React.Component {
           </div>
           <div className="container">
             <div id='content' className="section">
-              <AnyForm form={form} />
+              <ContainerForm container={container} />
             </div>
           </div>
         </div>
