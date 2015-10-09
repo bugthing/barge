@@ -1,16 +1,21 @@
 import React from 'react/addons'
 
-import Store from '../store'
-
 import FlowChart from './FlowChart'
 import ContainerForm from './ContainerForm'
 
 class FormWithChart extends React.Component {
+    static propTypes = {
+    	suite: React.PropTypes.object
+    }
+
+    static defaultProps = {
+        suite: undefined
+    }
 
     render() {
 
-        var chartjson = Store.getSuite().chartjson;
-        var container = Store.getSuite().container;
+        var chartjson = this.props.suite.chartjson;
+        var container = this.props.suite.container;
 
         return <div>
           <div className="section no-pad-bot" id="index-banner">
