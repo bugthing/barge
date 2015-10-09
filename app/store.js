@@ -48,8 +48,8 @@ AppDispatcher.register(function(action) {
         Store.emitChange();
         break;
 
-    case 'SAVE_CONTAINER':
-        Store.getSuite().container = action.container
+    case 'SAVE_SUITE':
+    	suites[current_suite] = action.suite;
         current_suite = undefined;
         LocalStorage.setItem('suites', JSON.stringify(suites));
         Store.emitChange();

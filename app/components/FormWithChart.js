@@ -1,7 +1,7 @@
 import React from 'react/addons'
 
 import FlowChart from './FlowChart'
-import ContainerForm from './ContainerForm'
+import SuiteForm from './SuiteForm'
 
 class FormWithChart extends React.Component {
     static propTypes = {
@@ -14,8 +14,8 @@ class FormWithChart extends React.Component {
 
     render() {
 
+        var suite = this.props.suite;
         var chartjson = this.props.suite.chartjson;
-        var container = this.props.suite.container;
 
         return <div>
           <div className="section no-pad-bot" id="index-banner">
@@ -25,7 +25,7 @@ class FormWithChart extends React.Component {
           </div>
           <div className="container">
             <div id='content' className="section">
-              <ContainerForm container={container} />
+              <SuiteForm suite={suite} />
             </div>
           </div>
         </div>

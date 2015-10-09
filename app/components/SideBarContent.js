@@ -52,7 +52,7 @@ class SideBarContent extends React.Component {
             i++;
 
             name = ' -- '
-            if(s.container && s.container.name) name = s.container.name
+            if(s.name) name = s.name
 
             return <SideBarItem key={i} name={name} index={i} />
         });

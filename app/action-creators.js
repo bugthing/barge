@@ -19,10 +19,10 @@ export default {
         AppDispatcher.dispatch(action)
     },
 
-    saveContainer: function(container) {
+    saveSuite: function(suite) {
         var action = {
-            actionType: 'SAVE_CONTAINER',
-            container: container
+            actionType: 'SAVE_SUITE',
+            suite: suite
         };
 
         AppDispatcher.dispatch(action)
