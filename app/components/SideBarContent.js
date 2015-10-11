@@ -18,7 +18,7 @@ class SideBarItem extends React.Component {
         ActionCreators.loadSuite(this.props.index);
     }
 
-    render() { 
+    render() {
     	return <a href="#!" className="collection-item" onClick={this.clickItemHandler.bind(this)} >{this.props.name}</a>
 	}
 }
@@ -42,7 +42,7 @@ class SideBarContent extends React.Component {
         Store.removeChangeListener(this.listSuites)
     }
 
-    render() { 
+    render() {
 
         var suites = [];
         var i = -1;
@@ -56,12 +56,10 @@ class SideBarContent extends React.Component {
 
             return <SideBarItem key={i} name={name} index={i} />
         });
-            
 
         return <div className="collection">
 			{items}
           </div>
-            
     }
 }
 export default SideBarContent

@@ -1,6 +1,8 @@
 import React from 'react/addons'
 import Store from '../store'
 import ActionCreators from '../action-creators'
+import ContainerForm from './ContainerForm'
+
 import Belle from 'belle'
 const TextInput = Belle.TextInput
 
@@ -32,6 +34,11 @@ class SuiteForm extends React.Component {
           <div className="row center">
                 <TextInput placeholder="container name" onUpdate={this.updateNameHandler.bind(this)} value={this.props.suite.name}/>
           </div>
+
+          <div className="row center">
+                <ContainerForm container={this.props.suite.container}/>
+          </div>
+
           <div className="row center">
                 <a className="waves-effect waves-light btn e2e-startbutton" onClick={this.clickOkHandler.bind(this)}>OK</a>
           </div>

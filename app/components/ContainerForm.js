@@ -16,38 +16,42 @@ class ContainerForm extends React.Component {
         container: {}
     }
 
-    clickOkHandler() {
-        ActionCreators.saveContainer( this.props.container );
+    constructor(props) {
+        super()
+        this.clickAddLinkHandler = this.clickAddLinkHandler.bind(this)
     }
 
-    updateContainerNameHandler(obj) {
-        this.props.container.name = obj.value
-        this.showForm()
-    }
-
-    showForm() {
-        this.setState({ container: this.props.container })
+    clickAddLinkHandler() {
     }
 
     render() {
-        return <div className="container">
-          <div className="row center"></div>
-          <div className="row center">
-                <TextInput placeholder="container name" onUpdate={this.updateContainerNameHandler.bind(this)} value={this.props.container.name}/>
-          </div>
-          <div className="row center">
-                <TextInput placeholder="execute command" />
-          </div>
-          <div className="row center">
-                ENVs
-          </div>
-          <div className="row center">
-                LINKS
-          </div>
-          <div className="row center">
-                <a className="waves-effect waves-light btn e2e-startbutton" onClick={this.clickOkHandler.bind(this)}>OK</a>
-          </div>
-          <div className="row center"></div>
+        return <div>
+            <div className="row center"></div>
+            <div className="row center">
+                Container
+            </div>
+            <div className="row center">
+                <table>
+                    <caption> Links </caption>
+                    <tr>
+                        <th> Link to </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a className="waves-effect waves-light btn" onClick={this.clickAddLinkHandler}>Add</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div className="row center">
+                <table>
+                    <caption> ENV </caption>
+                    <tr>
+                        <th> Varible </th>
+                        <th> Value </th>
+                    </tr>
+                </table>
+            </div>
         </div>
     }
 }
