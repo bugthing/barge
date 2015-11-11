@@ -15,12 +15,11 @@ class FormWithChart extends React.Component {
     render() {
 
         var suite = this.props.suite;
-        var chartjson = this.props.suite.chartjson;
 
         return <div>
           <div className="section no-pad-bot" id="index-banner">
             <div id='chart' className="container">
-              <FlowChart width={600} height={100} chart={chartjson} />
+              <FlowChart width={600} height={200} suite={suite} />
             </div>
           </div>
           <div className="container">
