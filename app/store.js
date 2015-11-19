@@ -1,16 +1,15 @@
-
 import LocalStorage from 'localStorage'
+import uuid from 'node-uuid'
 
-var AppDispatcher = require('./app-dispatcher');
+let AppDispatcher = require('./app-dispatcher');
+let EventEmitter = require('events').EventEmitter;
+let assign = require('object-assign');
+let suites = JSON.parse(LocalStorage.getItem('suites')) || [];
 
-var EventEmitter = require('events').EventEmitter;
+let currentSuiteUuid = undefined;
+let currentContainerUuid = undefined;
 
-var assign = require('object-assign');
-
-var suites = JSON.parse(LocalStorage.getItem('suites')) || [];
-var current_suite = undefined;
-
-var Store = assign({}, EventEmitter.prototype, {
+let Store = assign({}, EventEmitter.prototype, {
 
   emitChange: function() {
     this.emit('change');
@@ -25,7 +24,19 @@ var Store = assign({}, EventEmitter.prototype, {
   },
 
   getSuite: function() {
-    if(current_suite !== undefined) return suites[current_suite]
+      let matchedSuite = undefined
+      suites.forEach( (s) => {
+            if(currentSuiteUuid == s.uuid) matchedSuite = s
+      })
+      return matchedSuite
+  },
+
+  getContainer: function() {
+      let matchedContainer = undefined
+      this.getSuite().containers.forEach( (c) => {
+            if(currentContainerUuid == c.uuid) matchedContainer = c
+      })
+      return matchedContainer
   },
 
   getSuites: function() {
@@ -38,26 +49,41 @@ AppDispatcher.register(function(action) {
   switch(action.actionType) {
 
     case 'START_SUITE':
-        suites.push(action.suite);
-        current_suite = suites.length - 1;
-        Store.emitChange();
+        currentSuiteUuid = uuid.v4()
+        currentContainerUuid = uuid.v4()
+        let newSuite = {
+            uuid: currentSuiteUuid,
+            name: undefined,
+            containers: [
+                {
+                    uuid: currentContainerUuid
+                }
+            ]
+        }
+        suites.push(newSuite)
+        Store.emitChange()
         break;
 
     case 'LOAD_SUITE':
-        current_suite = action.index;
-        Store.emitChange();
+        currentSuiteUuid = action.uuid
+        Store.emitChange()
         break;
 
     case 'SAVE_SUITE':
-    	suites[current_suite] = action.suite;
-        current_suite = undefined;
-        LocalStorage.setItem('suites', JSON.stringify(suites));
+        currentSuiteUuid = undefined
+        LocalStorage.setItem('suites', JSON.stringify(suites))
         Store.emitChange();
         break;
 
-    case 'MOVE_FORM':
-        // TODO - here I change the form - but need to figure out a better way
-        Store.getSuite().form = [ { type: 'in2' } ]
+    case 'ADD_LINK':
+        let newUuid = uuid.v4()
+
+        Store.getSuite().containers.push({ uuid: newUuid })
+
+        let container = Store.getContainer()
+        if(container.links == undefined) container.links = []
+        container.links.push({ uuid: newUuid })
+
         Store.emitChange();
         break;
 
@@ -66,4 +92,3 @@ AppDispatcher.register(function(action) {
 });
 
 module.exports = Store;
-

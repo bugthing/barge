@@ -16,7 +16,7 @@ class Chart extends React.Component {
 	focusNode() {
 		console.log('Focus node')
         // TBA - fire new action (eg. FocusNode)
-    	ActionCreators.loadSuite(1);
+    	//ActionCreators.loadSuite(1);
 	}
 
     render() {

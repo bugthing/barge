@@ -22,6 +22,7 @@ class ContainerForm extends React.Component {
     }
 
     clickAddLinkHandler() {
+        ActionCreators.addLink()
     }
 
     render() {

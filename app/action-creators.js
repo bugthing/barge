@@ -1,19 +1,14 @@
 import AppDispatcher from './app-dispatcher'
 
 export default {
-    startSuite: function(suite) {
-        var action = {
-            actionType: 'START_SUITE',
-            suite: suite
-        };
-
-        AppDispatcher.dispatch(action)
+    startSuite: function() {
+        AppDispatcher.dispatch({ actionType: 'START_SUITE' });
     },
 
-    loadSuite: function(index) {
+    loadSuite: function(uuid) {
         var action = {
             actionType: 'LOAD_SUITE',
-            index: index
+            uuid: uuid
         };
 
         AppDispatcher.dispatch(action)
@@ -28,10 +23,9 @@ export default {
         AppDispatcher.dispatch(action)
     },
 
-    moveForm: function(form) {
+    addLink: function() {
         var action = {
-            actionType: 'MOVE_FORM',
-            form: form
+            actionType: 'ADD_LINK'
         };
 
         AppDispatcher.dispatch(action)

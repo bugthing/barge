@@ -26,7 +26,6 @@ class MainContent extends React.Component {
     }
 
     render() {
-
         if(this.state && this.state.suite) {
 			var suite = this.state.suite
             return <FormWithChart suite={suite} />
