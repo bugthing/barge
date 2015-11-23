@@ -75,6 +75,11 @@ AppDispatcher.register(function(action) {
         Store.emitChange();
         break;
 
+    case 'FOCUS_NODE':
+        currentContainerUuid = action.uuid
+        Store.emitChange()
+        break;
+
     case 'ADD_LINK':
         let newUuid = uuid.v4()
 

@@ -23,6 +23,15 @@ export default {
         AppDispatcher.dispatch(action)
     },
 
+    focusNode: function(uuid) {
+        var action = {
+            actionType: 'FOCUS_NODE',
+            uuid: uuid
+        };
+
+        AppDispatcher.dispatch(action)
+    },
+
     addLink: function() {
         var action = {
             actionType: 'ADD_LINK'
