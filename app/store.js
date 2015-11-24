@@ -69,6 +69,11 @@ AppDispatcher.register(function(action) {
         Store.emitChange()
         break;
 
+    case 'NAME_SUITE':
+        Store.getSuite().name = action.name;
+        Store.emitChange();
+        break;
+
     case 'SAVE_SUITE':
         currentSuiteUuid = undefined
         LocalStorage.setItem('suites', JSON.stringify(suites))

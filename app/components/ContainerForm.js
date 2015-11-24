@@ -17,7 +17,7 @@ class ContainerForm extends React.Component {
     }
 
     constructor(props) {
-        super()
+        super(props)
         this.clickAddLinkHandler = this.clickAddLinkHandler.bind(this)
     }
 

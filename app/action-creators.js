@@ -23,6 +23,15 @@ export default {
         AppDispatcher.dispatch(action)
     },
 
+    nameSuite: function(suiteName) {
+        var action = {
+            actionType: 'NAME_SUITE',
+            name: suiteName
+        };
+
+        AppDispatcher.dispatch(action)
+    },
+
     focusNode: function(uuid) {
         var action = {
             actionType: 'FOCUS_NODE',
