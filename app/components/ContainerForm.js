@@ -1,4 +1,4 @@
-import React from 'react/addons'
+import React from 'react'
 
 import Store from '../store'
 import ActionCreators from '../action-creators'
@@ -34,23 +34,27 @@ class ContainerForm extends React.Component {
             <div className="row center">
                 <table>
                     <caption> Links </caption>
-                    <tr>
-                        <th> Link to </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a className="waves-effect waves-light btn" onClick={this.clickAddLinkHandler}>Add</a>
-                        </td>
-                    </tr>
+                    <tbody>
+                      <tr>
+                          <th> Link to </th>
+                      </tr>
+                      <tr>
+                          <td>
+                              <a className="waves-effect waves-light btn" onClick={this.clickAddLinkHandler}>Add</a>
+                          </td>
+                      </tr>
+                    </tbody>
                 </table>
             </div>
             <div className="row center">
                 <table>
                     <caption> ENV </caption>
-                    <tr>
-                        <th> Varible </th>
-                        <th> Value </th>
-                    </tr>
+                    <tbody>
+                      <tr>
+                          <th> Varible </th>
+                          <th> Value </th>
+                      </tr>
+                    </tbody>
                 </table>
             </div>
         </div>

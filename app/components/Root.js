@@ -1,4 +1,4 @@
-import React from 'react/addons'
+import React from 'react'
 import Css from '../style.css'
 import SideBarContent from './SideBarContent'
 import MainContent from './MainContent'

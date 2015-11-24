@@ -7,12 +7,13 @@
     "doc": "docs"
   },
   "dependencies": {
-    "belle": "^1.0.1",
+    "belle": "^1.2.2",
     "d3": "^3.5.5",
-    "flux": "^2.0.3",
+    "flux": "^2.1.1",
     "node-uuid": "^1.4.7",
     "object-assign": "^3.0.0",
-    "react": "^0.13.3",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
     "react-tools": "^0.13.1"
   },
   "devDependencies": {
@@ -22,6 +23,7 @@
     "html-webpack-plugin": "^1.1.0",
     "localStorage": "^1.0.3",
     "protractor": "^2.1.0",
+    "react-addons-test-utils": "^0.14.3",
     "style-loader": "^0.8.3",
     "webpack": "^1.6.0",
     "webpack-dev-server": "^1.7.0"

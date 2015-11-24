@@ -1,4 +1,4 @@
-import React from 'react/addons'
+import React from 'react'
 
 import FlowChart from './FlowChart'
 import SuiteForm from './SuiteForm'

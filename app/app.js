@@ -1,3 +1,4 @@
-import React from 'react/addons'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import Root from './components/Root'
-React.render(<Root />, document.body);
+ReactDOM.render(<Root />, document.getElementById('application'))

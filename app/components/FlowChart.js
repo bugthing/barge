@@ -1,4 +1,5 @@
-import React from 'react/addons'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import d3 from 'd3'
 import ActionCreators from '../action-creators'
 import Store from '../store'
@@ -31,7 +32,6 @@ class Chart extends React.Component {
         Store.removeChangeListener(this.drawChart)
     }
 
-
     drawChart() {
 		// TBA - fix link.. why no lines?
 		//var links = [{source: 1, target: 0, value: 1}, {source: 2, target: 0, value: 8}, {source: 3, target: 0, value: 10}];
@@ -60,7 +60,7 @@ class Chart extends React.Component {
             }
         })
 
-		var el = React.findDOMNode(this);
+		var el = ReactDOM.findDOMNode(this);
 
         var w = this.props.width,
             h = this.props.height,
