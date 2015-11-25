@@ -3,7 +3,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   entry: {
     app: ['webpack/hot/dev-server', './app/app.js'],
-    test: './spec/BargeSpec.js'
+    test: ['./spec/BargeSpec.js', './spec/SuitesSpec.js']
   },
   output: {
     path: 'dist',
