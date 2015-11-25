@@ -32,12 +32,12 @@ class Suites {
     }
 
     get all() {
-		return this.suites
+      return this.suites
     }
 
-    get newSuite() {
+    newSuite() {
         this.suites.push(new Suite())
-        return this.suites.last
+        return this.suites.slice(-1)[0]
     }
 
     findSuite(id) {
