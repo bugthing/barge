@@ -6,7 +6,7 @@ describe('Suites module', () => {
     beforeEach(function () {
         let fakeStorage = {
             getItem: (item) => {
-                return '[{"id": "123"}]'
+                return '[{"id": "123", "containers": []}]'
             },
             setItem: (item, data) => {
 
@@ -19,6 +19,14 @@ describe('Suites module', () => {
         it('returns all parsed suites', () => {
             expect(suites.all).toEqual(jasmine.any(Array))
             expect(suites.all.length).toEqual(1)
+        })
+    })
+
+    describe('save', () => {
+        it('json stringify and stores', () => {
+            // TBA - assert it save right
+            // TBA - assert json looks right
+            expect(suites.save()).not.toBe(undefined)
         })
     })
 
@@ -40,6 +48,20 @@ describe('Suites module', () => {
 
         it('sets containers', () => {
             expect(newSuite.containers).toEqual(jasmine.any(Array))
+            expect(newSuite.containers.length).toEqual(1)
+        })
+
+        describe('Container', () => {
+            let container
+            beforeEach(() => {
+                container = newSuite.containers[0]
+            })
+
+            it('looks like a container', () => {
+                expect(container.hasOwnProperty('id')).toBe(true)
+                expect(container.hasOwnProperty('name')).toBe(true)
+                expect(container.hasOwnProperty('links')).toBe(true)
+            })
         })
     })
 
