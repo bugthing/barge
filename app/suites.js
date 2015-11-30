@@ -16,6 +16,13 @@ class Suite {
         this.name = name
         this.containers = containers
     }
+
+    newContainer() {
+		let container = new Container()
+        this.containers.push(container)
+
+        return this.containers.slice(-1)[0]
+    }
 }
 
 class Suites {
@@ -30,8 +37,9 @@ class Suites {
     }
 
     newSuite() {
-		let container = new Container()
-		let suite = new Suite(undefined, undefined, [container])
+		let suite = new Suite()
+		suite.newContainer()
+
         this.suites.push(suite)
 
         return this.suites.slice(-1)[0]

@@ -16,7 +16,7 @@ class Chart extends React.Component {
     }
 
 	focusNode(n) {
-    	ActionCreators.focusNode(n.uuid)
+    	ActionCreators.focusNode(n.id)
 	}
 
     render() {
@@ -41,20 +41,20 @@ class Chart extends React.Component {
 
 		let nodes = []
         suite.containers.forEach( (c) => {
-            nodes.push({name: c.uuid, uuid: c.uuid})
+            nodes.push({name: c.id, id: c.id})
         })
 
 		let links = []
-        let findIndexByUUID = (list, uuid) => {
+        let findIndexByID = (list, id) => {
             let c = -1
-            for(let i=0; i<list.length; i++) { if(list[i].uuid === uuid) c = i }
+            for(let i=0; i<list.length; i++) { if(list[i].id === id) c = i }
             return c
         }
         suite.containers.forEach( (c) => {
             if( c.links !== undefined ) {
-                let cIndex = findIndexByUUID(nodes, c.uuid)
+                let cIndex = findIndexByID(nodes, c.id)
                 c.links.forEach( (l) => {
-                    let dIndex = findIndexByUUID(nodes, l.uuid)
+                    let dIndex = findIndexByID(nodes, l.id)
                     links.push({source: cIndex, target: dIndex})
                 })
             }

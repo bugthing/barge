@@ -4,10 +4,11 @@ import uuid from 'node-uuid'
 let AppDispatcher = require('./app-dispatcher');
 let EventEmitter = require('events').EventEmitter;
 let assign = require('object-assign');
-let suites = JSON.parse(LocalStorage.getItem('suites')) || [];
+
+import Suites from './suites'
+let suites = new Suites()
 
 let currentSuiteUuid = undefined;
-let currentContainerUuid = undefined;
 
 let Store = assign({}, EventEmitter.prototype, {
 
@@ -24,23 +25,16 @@ let Store = assign({}, EventEmitter.prototype, {
   },
 
   getSuite: function() {
-      let matchedSuite = undefined
-      suites.forEach( (s) => {
-            if(currentSuiteUuid == s.uuid) matchedSuite = s
-      })
-      return matchedSuite
+      return suites.findSuite(currentSuiteUuid)
   },
 
   getContainer: function() {
-      let matchedContainer = undefined
-      this.getSuite().containers.forEach( (c) => {
-            if(currentContainerUuid == c.uuid) matchedContainer = c
-      })
-      return matchedContainer
+      // TBA - fix this logic! should b "current container" or sumit
+      return this.getSuite().containers[0]
   },
 
   getSuites: function() {
-    return suites
+    return suites.all
   }
 });
 
@@ -49,18 +43,8 @@ AppDispatcher.register(function(action) {
   switch(action.actionType) {
 
     case 'START_SUITE':
-        currentSuiteUuid = uuid.v4()
-        currentContainerUuid = uuid.v4()
-        let newSuite = {
-            uuid: currentSuiteUuid,
-            name: undefined,
-            containers: [
-                {
-                    uuid: currentContainerUuid
-                }
-            ]
-        }
-        suites.push(newSuite)
+        let newSuite = suites.newSuite()
+        currentSuiteUuid = newSuite.id
         Store.emitChange()
         break;
 
@@ -76,23 +60,20 @@ AppDispatcher.register(function(action) {
 
     case 'SAVE_SUITE':
         currentSuiteUuid = undefined
-        LocalStorage.setItem('suites', JSON.stringify(suites))
+        suites.save()
         Store.emitChange();
         break;
 
     case 'FOCUS_NODE':
-        currentContainerUuid = action.uuid
+        // TBA - fill in
         Store.emitChange()
         break;
 
     case 'ADD_LINK':
-        let newUuid = uuid.v4()
-
-        Store.getSuite().containers.push({ uuid: newUuid })
+        let newContainer = Store.getSuite().newContainer()
 
         let container = Store.getContainer()
-        if(container.links == undefined) container.links = []
-        container.links.push({ uuid: newUuid })
+        container.links.push({ id: newContainer.id })
 
         Store.emitChange();
         break;

@@ -6,16 +6,16 @@ import ActionCreators from '../action-creators'
 class SideBarItem extends React.Component {
     static propTypes = {
     	name: React.PropTypes.string,
-    	suiteUuid: React.PropTypes.string
+    	suiteId: React.PropTypes.string
     }
 
     static defaultProps = {
         name: '',
-        suiteUuid: ''
+        suiteId: ''
     }
 
     clickItemHandler(obj, index) {
-        ActionCreators.loadSuite(this.props.suiteUuid)
+        ActionCreators.loadSuite(this.props.suiteId)
     }
 
     render() {
@@ -54,7 +54,7 @@ class SideBarContent extends React.Component {
             name = ' -- '
             if(s.name) name = s.name
 
-            return <SideBarItem key={i} name={name} suiteUuid={s.uuid} />
+            return <SideBarItem key={i} name={name} suiteId={s.id} />
         });
 
         return <div className="collection">

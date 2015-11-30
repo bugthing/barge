@@ -22,14 +22,6 @@ describe('Suites module', () => {
         })
     })
 
-    describe('save', () => {
-        it('json stringify and stores', () => {
-            // TBA - assert it save right
-            // TBA - assert json looks right
-            expect(suites.save()).not.toBe(undefined)
-        })
-    })
-
     describe('newSuite', () => {
         let newSuite
         beforeEach(() => {
@@ -66,9 +58,25 @@ describe('Suites module', () => {
     })
 
     describe('findSuite', () => {
+        let found
+        beforeEach(() => {
+            found = suites.findSuite("123")
+        })
+
         it('finds ands returns a suite', () => {
-            let found = suites.findSuite("123")
             expect(found.id).toEqual("123")
+        })
+
+        describe('save', () => {
+            beforeEach(() => {
+                found.name = "test suite"
+            })
+
+            it('json stringify and stores', () => {
+                // TBA - assert it save right
+                // TBA - assert json looks right
+                expect(suites.save()).not.toBe(undefined)
+            })
         })
     })
 })
