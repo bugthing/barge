@@ -8,11 +8,8 @@ import ActionCreators from '../action-creators'
 
 class FormWithChart extends React.Component {
     static propTypes = {
-    	suite: React.PropTypes.object
-    }
-
-    static defaultProps = {
-        suite: undefined
+    	suite: React.PropTypes.object,
+    	container: React.PropTypes.object
     }
 
     constructor(props) {
@@ -25,8 +22,8 @@ class FormWithChart extends React.Component {
     }
 
     render() {
-
-        var suite = this.props.suite;
+        let suite = this.props.suite
+        let container = this.props.container
 
         return <div>
           <div className="container">
@@ -36,12 +33,12 @@ class FormWithChart extends React.Component {
           </div>
           <div className="section no-pad-bot" id="index-banner">
             <div id='chart' className="container">
-              <FlowChart width={600} height={200} suite={suite} />
+              <FlowChart width={600} height={200} suite={suite} container={container}/>
             </div>
           </div>
           <div className="container">
             <div id='content' className="section">
-              <ContainerForm suite={suite.container} />
+              <ContainerForm container={container} />
             </div>
           </div>
           <div className="row center">

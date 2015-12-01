@@ -1,16 +1,19 @@
+import d3 from 'd3'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import d3 from 'd3'
 import ActionCreators from '../action-creators'
 import Store from '../store'
 
-class Chart extends React.Component {
+class FlowChart extends React.Component {
     static propTypes = {
-    	chart: React.PropTypes.object
+    	suite: React.PropTypes.object,
+    	container: React.PropTypes.object,
+        width: React.PropTypes.number,
+        height: React.PropTypes.number
     }
 
     constructor(props) {
-        super()
+        super(props)
         this.focusNode = this.focusNode.bind(this)
         this.drawChart = this.drawChart.bind(this)
     }
@@ -33,15 +36,20 @@ class Chart extends React.Component {
     }
 
     drawChart() {
-		// TBA - fix link.. why no lines?
-		//var links = [{source: 1, target: 0, value: 1}, {source: 2, target: 0, value: 8}, {source: 3, target: 0, value: 10}];
-		//var nodes = [{name: "Myriel", group: 0}, {name: "Napoleon", group: 1}, {name: "Steve", group: 1},{name: "Dave", group: 1}];
+		// TBA - fix link.. why I see no lines?
 
-        let suite = this.props.chart
+        let suite = this.props.suite
+        let container = this.props.container
 
 		let nodes = []
         suite.containers.forEach( (c) => {
-            nodes.push({name: c.id, id: c.id})
+            let group = 0
+            let name = c.id
+            if(c.id === container.id) {
+                group = 1
+                name = 'FOCUS'
+            }
+            nodes.push({name: name, id: c.id, group: group})
         })
 
 		let links = []
@@ -117,11 +125,4 @@ class Chart extends React.Component {
     }
 }
 
-class FlowChart extends React.Component {
-    render() {
-        let chart = this.props.suite
-
-        return <Chart width={this.props.width} height={this.props.height} chart={chart} />
-    }
-}
 export default FlowChart

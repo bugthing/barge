@@ -32,10 +32,10 @@ export default {
         AppDispatcher.dispatch(action)
     },
 
-    focusNode: function(uuid) {
+    focusNode: function(id) {
         var action = {
             actionType: 'FOCUS_NODE',
-            uuid: uuid
+            id: id
         };
 
         AppDispatcher.dispatch(action)

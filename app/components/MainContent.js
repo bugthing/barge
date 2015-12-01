@@ -7,6 +7,12 @@ import StartHere from './StartHere'
 import FormWithChart from './FormWithChart'
 
 class MainContent extends React.Component {
+    static propTypes = {
+    	suite: React.PropTypes.object,
+    }
+    static defaultProps = {
+        suite: undefined
+    }
 
     constructor(props) {
         super()
@@ -14,7 +20,7 @@ class MainContent extends React.Component {
     }
 
     startSuite() {
-        this.setState({ suite: Store.getSuite() });
+        this.setState({ suite: Store.getSuite(), container: Store.getContainer() });
     }
 
     componentDidMount() {
@@ -27,8 +33,7 @@ class MainContent extends React.Component {
 
     render() {
         if(this.state && this.state.suite) {
-			var suite = this.state.suite
-            return <FormWithChart suite={suite} />
+            return <FormWithChart suite={this.state.suite} container={this.state.container} />
         } else {
             return <StartHere />
         }

@@ -9,6 +9,7 @@ import Suites from './suites'
 let suites = new Suites()
 
 let currentSuiteUuid = undefined;
+let focusContainer = undefined;
 
 let Store = assign({}, EventEmitter.prototype, {
 
@@ -29,8 +30,11 @@ let Store = assign({}, EventEmitter.prototype, {
   },
 
   getContainer: function() {
-      // TBA - fix this logic! should b "current container" or sumit
-      return this.getSuite().containers[0]
+      let cont = this.getSuite().containers[0]
+      this.getSuite().containers.some( function(c) {
+          if(c.id === focusContainer) cont = c
+      });
+      return cont
   },
 
   getSuites: function() {
@@ -49,7 +53,8 @@ AppDispatcher.register(function(action) {
         break;
 
     case 'LOAD_SUITE':
-        currentSuiteUuid = action.uuid
+        let curSuite = suites.findSuite(action.uuid)
+        currentSuiteUuid = curSuite.id
         Store.emitChange()
         break;
 
@@ -65,7 +70,7 @@ AppDispatcher.register(function(action) {
         break;
 
     case 'FOCUS_NODE':
-        // TBA - fill in
+        let focusContainer = action.id;
         Store.emitChange()
         break;
 
