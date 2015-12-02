@@ -13,33 +13,34 @@ let focusContainer = undefined;
 
 let Store = assign({}, EventEmitter.prototype, {
 
-  emitChange: function() {
-    this.emit('change');
-  },
+    emitChange: function() {
+        this.emit('change');
+    },
 
-  addChangeListener: function(callback) {
-    this.on('change', callback);
-  },
+    addChangeListener: function(callback) {
+        this.on('change', callback);
+    },
 
-  removeChangeListener: function(callback) {
-    this.removeListener('change', callback);
-  },
+    removeChangeListener: function(callback) {
+        this.removeListener('change', callback);
+    },
 
-  getSuite: function() {
-      return suites.findSuite(currentSuiteUuid)
-  },
+    getSuite: function() {
+        return suites.findSuite(currentSuiteUuid)
+    },
 
-  getContainer: function() {
-      let cont = this.getSuite().containers[0]
-      this.getSuite().containers.some( function(c) {
-          if(c.id === focusContainer) cont = c
-      });
-      return cont
-  },
+    getContainer: function() {
+        if(this.getSuite() === undefined) return undefined 
+        let cont = this.getSuite().containers[0]
+        this.getSuite().containers.some( function(c) {
+            if(c.id === focusContainer) cont = c
+        });
+        return cont
+    },
 
-  getSuites: function() {
-    return suites.all
-  }
+    getSuites: function() {
+        return suites.all
+    }
 });
 
 AppDispatcher.register(function(action) {
@@ -69,8 +70,8 @@ AppDispatcher.register(function(action) {
         Store.emitChange();
         break;
 
-    case 'FOCUS_NODE':
-        let focusContainer = action.id;
+    case'FOCUS_NODE':
+        focusContainer = action.id;
         Store.emitChange()
         break;
 

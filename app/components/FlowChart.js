@@ -1,8 +1,8 @@
-import d3 from 'd3'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ActionCreators from '../action-creators'
 import Store from '../store'
+import d3FlowChart from '../d3FlowChart'
 
 class FlowChart extends React.Component {
     static propTypes = {
@@ -15,6 +15,7 @@ class FlowChart extends React.Component {
     constructor(props) {
         super(props)
         this.focusNode = this.focusNode.bind(this)
+        this.chartNodesAndLinks = this.chartNodesAndLinks.bind(this)
         this.drawChart = this.drawChart.bind(this)
     }
 
@@ -22,42 +23,25 @@ class FlowChart extends React.Component {
     	ActionCreators.focusNode(n.id)
 	}
 
-    render() {
-		return <svg width={this.props.width} height={this.props.height}></svg>
-    }
-
-    componentDidMount() {
-        this.drawChart();
-        Store.addChangeListener(this.drawChart)
-    }
-
-    componentWillUnmount() {
-        Store.removeChangeListener(this.drawChart)
-    }
-
-    drawChart() {
-		// TBA - fix link.. why I see no lines?
-
+    chartNodesAndLinks() {
         let suite = this.props.suite
         let container = this.props.container
-
 		let nodes = []
-        suite.containers.forEach( (c) => {
-            let group = 0
-            let name = c.id
-            if(c.id === container.id) {
-                group = 1
-                name = 'FOCUS'
-            }
-            nodes.push({name: name, id: c.id, group: group})
-        })
-
 		let links = []
+
         let findIndexByID = (list, id) => {
             let c = -1
             for(let i=0; i<list.length; i++) { if(list[i].id === id) c = i }
             return c
         }
+
+        suite.containers.forEach( (c) => {
+            let group = 0
+            let name = c.id
+            if(c.id === container.id) group = 1
+            nodes.push({name: name, id: c.id, group: group})
+        })
+
         suite.containers.forEach( (c) => {
             if( c.links !== undefined ) {
                 let cIndex = findIndexByID(nodes, c.id)
@@ -68,60 +52,40 @@ class FlowChart extends React.Component {
             }
         })
 
-		var el = ReactDOM.findDOMNode(this);
+		return {nodes: nodes, links: links}
+    }
 
-        var w = this.props.width,
-            h = this.props.height,
-            fill = d3.scale.category20();
+    drawChart() {
+		let el = ReactDOM.findDOMNode(this);
+		let chartData = this.chartNodesAndLinks();
 
-        var vis = d3.select(el);
+        //d3FlowChart.destroy(el)
+    	d3FlowChart.create(el, {
+    	  	width: this.props.width,
+    	  	height: this.props.height,
+    	}, chartData, this.focusNode)
+    }
 
-        var force = d3.layout.force()
-            .charge(-120)
-            .linkDistance(30)
-            .nodes(nodes)
-            .links(links)
-            .size([w, h])
-            .start();
+    componentDidMount() {
+		this.drawChart()
+		Store.addChangeListener(this.drawChart)
+    }
 
-        var link = vis.selectAll("line.link")
-            .data(links)
-          .enter().append("svg:line")
-            .attr("class", "link")
-            .style("stroke-width", (d) => { return Math.sqrt(d.value); })
-            .attr("x1", (d) => { return d.source.x; })
-            .attr("y1", (d) => { return d.source.y; })
-            .attr("x2", (d) => { return d.target.x; })
-            .attr("y2", (d) => { return d.target.y; });
+    componentDidUpdate() {
+		//let el = ReactDOM.findDOMNode(this);
+		//let chartData = this.chartNodesAndLinks();
+        //d3FlowChart.update(el, chartData)
+    }
 
-        var node = vis.selectAll("circle.node")
-            .data(nodes)
-          .enter().append("svg:circle")
-            .attr("class", "node")
-            .attr("cx", (d) => { return d.x; })
-            .attr("cy", (d) => { return d.y; })
-            .attr("r", 5)
-            .style("fill", (d) => { return fill(d.group); })
-            .call(force.drag);
+    componentWillUnmount() {
+		//let el = ReactDOM.findDOMNode(this);
+        //d3FlowChart.destroy(el);
 
-        node.append("svg:title")
-            .text((d) => { return d.name; });
+        Store.removeChangeListener(this.drawChart)
+    }
 
-        node.on("click", this.focusNode);
-
-        vis.style("opacity", 1e-6)
-           .transition()
-           .duration(1000)
-           .style("opacity", 1);
-
-        force.on("tick", () => {
-          link.attr("x1", (d) => { return d.source.x; })
-              .attr("y1", (d) => { return d.source.y; })
-              .attr("x2", (d) => { return d.target.x; })
-              .attr("y2", (d) => { return d.target.y; });
-          node.attr("cx", (d) => { return d.x; })
-              .attr("cy", (d) => { return d.y; });
-        });
+    render() {
+		return <svg width={this.props.width} height={this.props.height}></svg>
     }
 }
 
