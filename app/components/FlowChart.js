@@ -2,21 +2,29 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import ActionCreators from '../action-creators'
 import Store from '../store'
+
 import d3FlowChart from '../d3FlowChart'
+import Graph from '../Graph'
 
 class FlowChart extends React.Component {
     static propTypes = {
     	suite: React.PropTypes.object,
     	container: React.PropTypes.object,
         width: React.PropTypes.number,
-        height: React.PropTypes.number
+        height: React.PropTypes.number,
+    }
+
+    static defaultProps = {
+    	suite: {},
+    	container: {},
+        width: 300,
+        height: 300,
     }
 
     constructor(props) {
         super(props)
         this.focusNode = this.focusNode.bind(this)
         this.chartNodesAndLinks = this.chartNodesAndLinks.bind(this)
-        this.drawChart = this.drawChart.bind(this)
     }
 
 	focusNode(n) {
@@ -26,62 +34,43 @@ class FlowChart extends React.Component {
     chartNodesAndLinks() {
         let suite = this.props.suite
         let container = this.props.container
+
 		let nodes = []
-		let links = []
-
-        let findIndexByID = (list, id) => {
-            let c = -1
-            for(let i=0; i<list.length; i++) { if(list[i].id === id) c = i }
-            return c
-        }
-
         suite.containers.forEach( (c) => {
             let group = 0
             let name = c.id
             if(c.id === container.id) group = 1
-            nodes.push({name: name, id: c.id, group: group})
+            nodes.push({id: c.id, name: name, group: group})
         })
 
+		let links = []
         suite.containers.forEach( (c) => {
             if( c.links !== undefined ) {
-                let cIndex = findIndexByID(nodes, c.id)
-                c.links.forEach( (l) => {
-                    let dIndex = findIndexByID(nodes, l.id)
-                    links.push({source: cIndex, target: dIndex})
-                })
+                c.links.forEach( (l) => { links.push({sourceId: c.id, targetId: l.id}) })
             }
         })
 
 		return {nodes: nodes, links: links}
     }
 
-    drawChart() {
-		let el = ReactDOM.findDOMNode(this);
-		let chartData = this.chartNodesAndLinks();
-
-        //d3FlowChart.destroy(el)
-    	d3FlowChart.create(el, {
-    	  	width: this.props.width,
-    	  	height: this.props.height,
-    	}, chartData, this.focusNode)
-    }
-
     componentDidMount() {
-		this.drawChart()
-		Store.addChangeListener(this.drawChart)
+		console.log('FLOW start')
+		this.setState({chart: new Graph(ReactDOM.findDOMNode(this, this.props.width, this.props.height))})
     }
 
     componentDidUpdate() {
-		//let el = ReactDOM.findDOMNode(this);
-		//let chartData = this.chartNodesAndLinks();
-        //d3FlowChart.update(el, chartData)
+		console.log('FLOW update')
+
+		let chart = this.state.chart
+		let chartData = this.chartNodesAndLinks()
+		chart.removeAllNodes()
+		chart.removeAllLinks()
+		chartData.nodes.forEach( (n) => { chart.addNode(n) })
+		chartData.links.forEach( (l) => { chart.addLink(l.sourceId, l.targetId) })
     }
 
     componentWillUnmount() {
-		//let el = ReactDOM.findDOMNode(this);
-        //d3FlowChart.destroy(el);
-
-        Store.removeChangeListener(this.drawChart)
+		console.log('FLOW remove')
     }
 
     render() {
