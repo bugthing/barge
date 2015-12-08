@@ -32,6 +32,15 @@ export default {
         AppDispatcher.dispatch(action)
     },
 
+    nameContainer: function(containerName) {
+        var action = {
+            actionType: 'NAME_CONTAINER',
+            name: containerName
+        };
+
+        AppDispatcher.dispatch(action)
+    },
+
     focusNode: function(id) {
         var action = {
             actionType: 'FOCUS_NODE',

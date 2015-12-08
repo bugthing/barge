@@ -22,7 +22,7 @@ class SuiteForm extends React.Component {
         return <div className="container">
           <div className="row center"></div>
           <div className="row center">
-                <TextInput placeholder="container name" onUpdate={this.updateNameHandler.bind(this)} value={this.props.suite.name}/>
+                <TextInput placeholder="suite name" onUpdate={this.updateNameHandler.bind(this)} value={this.props.suite.name}/>
           </div>
           <div className="row center"></div>
         </div>

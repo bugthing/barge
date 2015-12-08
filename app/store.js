@@ -64,6 +64,11 @@ AppDispatcher.register(function(action) {
         Store.emitChange();
         break;
 
+    case 'NAME_CONTAINER':
+        Store.getContainer().name = action.name;
+        Store.emitChange();
+        break;
+
     case 'SAVE_SUITE':
         currentSuiteUuid = undefined
         suites.save()

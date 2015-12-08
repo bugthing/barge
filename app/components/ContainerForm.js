@@ -19,6 +19,11 @@ class ContainerForm extends React.Component {
     constructor(props) {
         super(props)
         this.clickAddLinkHandler = this.clickAddLinkHandler.bind(this)
+        this.updateNameHandler = this.updateNameHandler.bind(this)
+    }
+
+    updateNameHandler(obj) {
+        ActionCreators.nameContainer( obj.value )
     }
 
     clickAddLinkHandler() {
@@ -26,17 +31,32 @@ class ContainerForm extends React.Component {
     }
 
     render() {
+
+        let links = this.props.container.links.map( (l) => {
+            return <div> {l.id} </div>
+        });
+
+        // this is shit! - is the value is 'undefined' it does not update the TextInput
+        if(this.props.container.name === undefined) this.props.container.name = ''
+
         return <div>
             <div className="row center"></div>
             <div className="row center">
-                Container
+                <TextInput placeholder="container name" onUpdate={this.updateNameHandler} value={this.props.container.name}/>
             </div>
             <div className="row center">
                 <table>
                     <caption> Links </caption>
-                    <tbody>
+                    <theader>
                       <tr>
                           <th> Link to </th>
+                      </tr>
+                    </theader>
+                    <tbody>
+                      <tr>
+                          <td>
+                          {links}
+                          </td>
                       </tr>
                       <tr>
                           <td>
