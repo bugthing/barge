@@ -54,13 +54,14 @@ class FlowChart extends React.Component {
     }
 
     componentDidMount() {
-		console.log('FLOW start')
-		this.setState({chart: new Graph(ReactDOM.findDOMNode(this, this.props.width, this.props.height))})
+		//console.log('FLOW start')
+		let chart = new Graph(ReactDOM.findDOMNode(this), this.props.width, this.props.height);
+		chart.nodeClick = this.focusNode
+		this.setState({chart: chart})
     }
 
     componentDidUpdate() {
-		console.log('FLOW update')
-
+		//console.log('FLOW update')
 		let chart = this.state.chart
 		let chartData = this.chartNodesAndLinks()
 		chart.removeAllNodes()
@@ -70,7 +71,7 @@ class FlowChart extends React.Component {
     }
 
     componentWillUnmount() {
-		console.log('FLOW remove')
+		//console.log('FLOW remove')
     }
 
     render() {

@@ -1,6 +1,6 @@
 import d3 from 'd3'
 
-let Graph = function(el, width=200, height=300) {
+let Graph = function(el, width, height) {
 
 	this.addNode = (node) => {
 	    nodes.push(node);
@@ -35,6 +35,10 @@ let Graph = function(el, width=200, height=300) {
 	    update();
 	};
 	
+	this.nodeClick = (d) => {
+            console.log('clicked node:' + d.id) 
+    };
+
 	this.removeAllLinks = () => {
 	    links.splice(0,links.length);
 	    update();
@@ -58,7 +62,7 @@ let Graph = function(el, width=200, height=300) {
 	        }
 	    };
 	};
-	
+
 	// set up the D3 visualisation in the specified element
 	let vis = d3.select(el)
 	    .append('svg:svg')
@@ -90,10 +94,12 @@ let Graph = function(el, width=200, height=300) {
 	
 	    let node = vis.selectAll('g.node')
 	        .data(nodes, (d) => { return d.id;});
+
+	    node.on('click', this.nodeClick)
 	
 	    let nodeEnter = node.enter().append('g')
-            .style("fill", function (d) { return '#29B6F6'; })
 	        .attr('class', 'node')
+            .style('fill', function(d) { return d.group == 1 ? '#E54236' : '#29B6F6'; })
 	        .call(force.drag);
 	
 	    nodeEnter.append('svg:circle')
@@ -105,7 +111,7 @@ let Graph = function(el, width=200, height=300) {
 	    .attr('class','textClass')
 	    .text( (d) => { return d.id }) ;
 	
-	    node.exit().remove();
+	    node.exit().remove()
 	    force.on('tick', () => {
 	
 	        node.attr('transform', (d) => { return 'translate(' + d.x + ',' + d.y         + ')'; });

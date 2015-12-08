@@ -42,7 +42,7 @@ class FormWithChart extends React.Component {
             </div>
           </div>
           <div className="row center">
-                <a className="waves-effect waves-light btn e2e-startbutton" onClick={this.clickOkHandler.bind(this)}>OK</a>
+             <a className="waves-effect waves-light btn" onClick={this.clickOkHandler.bind(this)}>OK</a>
           </div>
         </div>
     }
