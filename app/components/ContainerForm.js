@@ -33,7 +33,7 @@ class ContainerForm extends React.Component {
     render() {
 
         let links = this.props.container.links.map( (l) => {
-            return <div> {l.id} </div>
+            return <div key={l.id}> {l.id} </div>
         });
 
         // this is shit! - is the value is 'undefined' it does not update the TextInput
@@ -47,12 +47,10 @@ class ContainerForm extends React.Component {
             <div className="row center">
                 <table>
                     <caption> Links </caption>
-                    <theader>
+                    <tbody>
                       <tr>
                           <th> Link to </th>
                       </tr>
-                    </theader>
-                    <tbody>
                       <tr>
                           <td>
                           {links}
