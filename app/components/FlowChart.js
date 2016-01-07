@@ -1,9 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+
 import ActionCreators from '../action-creators'
 import Store from '../store'
-
-import d3FlowChart from '../d3FlowChart'
 import Graph from '../Graph'
 
 class FlowChart extends React.Component {
