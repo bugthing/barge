@@ -11,14 +11,14 @@ and installed locally and you need to be able to reference
 the executables, ensure you set add `./node_modules/.bin` to
 your PATH. (e.g `export PATH="node_modules/.bin:$PATH" `)
 
-    npm install
+    $ npm install
 
 ### Build
 
 You can get webpack to build the app and place the resulting
 code in `./dist/`
 
-    webpack
+    $ webpack
 
 You can view the result by pointing your browser at the
 resulting `./dist/index.html`
@@ -29,18 +29,29 @@ resulting `./dist/index.html`
 To make development easier, you can use a server to build, serve
 and auto-reload to application.
 
-    webpack-dev-server --content-base dist/ --hot
+    $ npm start
 
 Now point your browser at:
 
     http://localhost:8080/
 
-Currently u need to turn off web-security as I have not got CORS right (yet):
+### Tests
 
-    google-chrome-stable --disable-web-security
+When the server is running, you can run all the tests (jasmine + protractor)
+
+Ensure the webdriver bits are installed
+
+    $ webdriver-manager update
+
+Run tests like so
+
+    $ npm test
 
 References
 ----------
 
 [webpack](http://webpack.github.io/docs/tutorials/getting-started/)
 [webpack-dev-server](http://webpack.github.io/docs/webpack-dev-server.html)
+[react](https://facebook.github.io/react/)
+[flux](https://facebook.github.io/flux/)
+[d3](http://d3js.org/)
