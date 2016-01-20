@@ -11,14 +11,14 @@ class FlowChart extends React.Component {
     	container: React.PropTypes.object,
         width: React.PropTypes.number,
         height: React.PropTypes.number,
-    }
+    };
 
     static defaultProps = {
     	suite: {},
     	container: {},
         width: 300,
         height: 300,
-    }
+    };
 
     constructor(props) {
         super(props)

@@ -10,7 +10,7 @@ class FormWithChart extends React.Component {
     static propTypes = {
     	suite: React.PropTypes.object,
     	container: React.PropTypes.object
-    }
+    };
 
     constructor(props) {
         super(props)

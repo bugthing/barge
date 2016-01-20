@@ -10,11 +10,11 @@ const TextInput = Belle.TextInput
 class ContainerForm extends React.Component {
     static propTypes = {
         container: React.PropTypes.object
-    }
+    };
 
     static defaultProps = {
         container: {}
-    }
+    };
 
     constructor(props) {
         super(props)

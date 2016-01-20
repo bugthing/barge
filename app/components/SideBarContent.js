@@ -7,12 +7,12 @@ class SideBarItem extends React.Component {
     static propTypes = {
     	name: React.PropTypes.string,
     	suiteId: React.PropTypes.string
-    }
+    };
 
     static defaultProps = {
         name: '',
         suiteId: ''
-    }
+    };
 
     clickItemHandler(obj, index) {
         ActionCreators.loadSuite(this.props.suiteId)

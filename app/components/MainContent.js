@@ -9,10 +9,10 @@ import FormWithChart from './FormWithChart'
 class MainContent extends React.Component {
     static propTypes = {
     	suite: React.PropTypes.object,
-    }
+    };
     static defaultProps = {
         suite: undefined
-    }
+    };
 
     constructor(props) {
         super()

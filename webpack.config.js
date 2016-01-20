@@ -14,7 +14,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', query: { optional: ["es7.decorators", "es7.classProperties"] } },
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader', query: {  presets: ['es2015', 'stage-0', 'react'], } },
       { test: /\.css$/, loader: "style!css" }
     ]
   },

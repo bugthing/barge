@@ -9,10 +9,10 @@ const TextInput = Belle.TextInput
 class SuiteForm extends React.Component {
     static propTypes = {
         suite: React.PropTypes.object
-    }
+    };
     static defaultProps = {
         suite: {}
-    }
+    };
 
     updateNameHandler(obj) {
         ActionCreators.nameSuite( obj.value )
