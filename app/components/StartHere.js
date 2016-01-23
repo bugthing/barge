@@ -1,7 +1,5 @@
 import React from 'react'
 
-import ActionCreators from '../action-creators'
-
 class StartHere extends React.Component {
     clickStartHandler() {
         ActionCreators.startSuite()

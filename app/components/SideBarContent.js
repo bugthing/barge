@@ -1,12 +1,15 @@
 import React from 'react'
+import {observer} from 'mobservable-react'
 
 import Store from '../store'
 import ActionCreators from '../action-creators'
 
+@observer
 class SideBarItem extends React.Component {
     static propTypes = {
     	name: React.PropTypes.string,
-    	suiteId: React.PropTypes.string
+    	suiteId: React.PropTypes.string,
+    	onLoadSuite: React.PropTypes.func
     };
 
     static defaultProps = {
@@ -14,51 +17,44 @@ class SideBarItem extends React.Component {
         suiteId: ''
     };
 
-    clickItemHandler(obj, index) {
-        ActionCreators.loadSuite(this.props.suiteId)
-    }
-
     render() {
-    	return <a href="#!" className="collection-item" onClick={this.clickItemHandler.bind(this)} >{this.props.name}</a>
+    	return <a href="#!" className="collection-item" onClick={this.props.onLoadSuite.bind(null, this.props.suiteId)} >{this.props.name}</a>
 	}
 }
 
+@observer
 class SideBarContent extends React.Component {
-    constructor(props) {
-        super()
-        this.listSuites = this.listSuites.bind(this)
-    }
+    static propTypes = {
+    	app: React.PropTypes.object
+    };
 
-    listSuites() {
-        this.setState({ suites: Store.getSuites() });
-    }
+    static defaultProps = {
+        app: {}
+    };
 
-    componentDidMount() {
-        this.listSuites();
-        Store.addChangeListener(this.listSuites)
-    }
+    onLoad = (id) => {
+     	this.props.app.loadSuite(id)
+	};
 
-    componentWillUnmount() {
-        Store.removeChangeListener(this.listSuites)
-    }
+    onNew = (id) => {
+     	this.props.app.newSuite()
+	};
 
     render() {
 
-        var suites = [];
         var i = -1;
-        if(this.state) suites = this.state.suites;
-
-        var items = suites.map( (s) => {
+        var items = this.props.app.suites.map( (s) => {
             i++;
 
             name = ' -- '
             if(s.name) name = s.name
 
-            return <SideBarItem key={i} name={name} suiteId={s.id} />
+            return <SideBarItem key={i} name={name} suiteId={s.id} onLoadSuite={this.onLoad}/>
         });
 
         return <div className="collection">
 			{items}
+    	    <a href="#!" className="collection-item" onClick={this.onNew} > + </a>
           </div>
     }
 }

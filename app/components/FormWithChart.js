@@ -1,34 +1,38 @@
 import React from 'react'
+import {observer} from 'mobservable-react'
 
-import FlowChart from './FlowChart'
 import SuiteForm from './SuiteForm'
-import ContainerForm from './ContainerForm'
+import FlowChart from './FlowChart'
+//import ContainerForm from './ContainerForm'
 
-import ActionCreators from '../action-creators'
-
+@observer
 class FormWithChart extends React.Component {
     static propTypes = {
-    	suite: React.PropTypes.object,
-    	container: React.PropTypes.object
+    	app: React.PropTypes.object
+    };
+    static defaultProps = {
+        app: undefined
     };
 
-    constructor(props) {
-        super(props)
-        this.clickOkHandler = this.clickOkHandler.bind(this)
-    }
+    onSuiteChange = (form) => {
+     	this.props.app.editSuite(form.name)
+    };
 
-    clickOkHandler() {
-        ActionCreators.saveSuite( this.props.suite );
-    }
+    currentSuite = () => {
+		return this.props.app.suites[this.props.app.currentSuiteIndex()]
+    };
 
     render() {
-        let suite = this.props.suite
-        let container = this.props.container
+		let suite = this.currentSuite()
+        let container = suite.containers[0]
+   //     let container = this.props.container
 
+   //           <ContainerForm container={container} />
+  //           <a className="waves-effect waves-light btn" onClick={this.clickOkHandler.bind(this)}>OK</a>
         return <div>
           <div className="container">
             <div id='content' className="section">
-              <SuiteForm suite={suite} />
+              <SuiteForm suite={suite} onChange={this.onSuiteChange}/>
             </div>
           </div>
           <div className="section no-pad-bot" id="index-banner">
@@ -38,11 +42,9 @@ class FormWithChart extends React.Component {
           </div>
           <div className="container">
             <div id='content' className="section">
-              <ContainerForm container={container} />
             </div>
           </div>
           <div className="row center">
-             <a className="waves-effect waves-light btn" onClick={this.clickOkHandler.bind(this)}>OK</a>
           </div>
         </div>
     }
