@@ -1,4 +1,5 @@
 import React from 'react'
+import {observer} from 'mobservable-react'
 
 import Store from '../store'
 import ActionCreators from '../action-creators'
@@ -7,32 +8,28 @@ import Belle from 'belle'
 
 const TextInput = Belle.TextInput
 
+@observer
 class ContainerForm extends React.Component {
     static propTypes = {
-        container: React.PropTypes.object
+    	container: React.PropTypes.object
     };
 
     static defaultProps = {
         container: {}
     };
 
-    constructor(props) {
-        super(props)
-        this.clickAddLinkHandler = this.clickAddLinkHandler.bind(this)
-        this.updateNameHandler = this.updateNameHandler.bind(this)
-    }
-
-    updateNameHandler(obj) {
-        ActionCreators.nameContainer( obj.value )
-    }
-
-    clickAddLinkHandler() {
-        ActionCreators.addLink()
-    }
+    onNameChange = (obj) => {
+        console.log('Change Name:' + obj.value)
+    };
+    onLinkAddClick = () => {
+        console.log('Add link!')
+    };
 
     render() {
+        let container = this.props.container
 
-        let links = this.props.container.links.map( (l) => {
+        if(!container.links) container.links = []
+        let links = container.links.map( (l) => {
             return <div key={l.id}> {l.id} </div>
         });
 
@@ -42,7 +39,7 @@ class ContainerForm extends React.Component {
         return <div>
             <div className="row center"></div>
             <div className="row center">
-                <TextInput placeholder="container name" onUpdate={this.updateNameHandler} value={this.props.container.name}/>
+                <TextInput placeholder="container name" onUpdate={this.onNameChange} value={container.name}/>
             </div>
             <div className="row center">
                 <table>
@@ -58,7 +55,7 @@ class ContainerForm extends React.Component {
                       </tr>
                       <tr>
                           <td>
-                              <a className="waves-effect waves-light btn" onClick={this.clickAddLinkHandler}>Add</a>
+                              <a className="waves-effect waves-light btn" onClick={this.onLinkAddClick}>Add</a>
                           </td>
                       </tr>
                     </tbody>

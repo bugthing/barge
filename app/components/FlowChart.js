@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 
 import ActionCreators from '../action-creators'
 import Store from '../store'
+
 import Graph from '../Graph'
 
 @observer
@@ -31,7 +32,7 @@ class FlowChart extends React.Component {
 	focusNode(n) {
     	ActionCreators.focusNode(n.id)
 	}
-
+	
     chartNodesAndLinks() {
         let suite = this.props.suite
         let container = this.props.container

@@ -3,7 +3,7 @@ import {observer} from 'mobservable-react'
 
 import SuiteForm from './SuiteForm'
 import FlowChart from './FlowChart'
-//import ContainerForm from './ContainerForm'
+import ContainerForm from './ContainerForm'
 
 @observer
 class FormWithChart extends React.Component {
@@ -18,17 +18,23 @@ class FormWithChart extends React.Component {
      	this.props.app.editSuite(form.name)
     };
 
+    onOkClick = () => {
+     	this.props.app.saveSuite()
+    };
+
     currentSuite = () => {
 		return this.props.app.suites[this.props.app.currentSuiteIndex()]
+    };
+    currentContainer = () => {
+               return this.props.app
+               .suites[this.props.app.currentSuiteIndex()]
+               .containers[this.props.app.currentContainerIndex()]
     };
 
     render() {
 		let suite = this.currentSuite()
-        let container = suite.containers[0]
-   //     let container = this.props.container
+        let container = this.currentContainer()
 
-   //           <ContainerForm container={container} />
-  //           <a className="waves-effect waves-light btn" onClick={this.clickOkHandler.bind(this)}>OK</a>
         return <div>
           <div className="container">
             <div id='content' className="section">
@@ -42,9 +48,11 @@ class FormWithChart extends React.Component {
           </div>
           <div className="container">
             <div id='content' className="section">
+              <ContainerForm container={container} />
             </div>
           </div>
           <div className="row center">
+            <a className="waves-effect waves-light btn" onClick={this.onOkClick}>OK</a>
           </div>
         </div>
     }

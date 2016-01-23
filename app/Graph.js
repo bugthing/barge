@@ -100,7 +100,8 @@ let Graph = function(el, width, height) {
 	    node.exit().remove()
 
 	    force.on('tick', (e) => {
-		    let root = nodes[0]
+            let root = nodes[0]
+            if(!root) return undefined // might be empty
   	        root.fixed = true
   	        root.x = width / 2
   	        root.y = 20

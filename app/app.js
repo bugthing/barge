@@ -33,33 +33,50 @@ const appState = observable({
 });
 
 appState.newSuite = function() {
-		console.log('NEW SUITE PLEASE')
-		appState.suites.push(
-		{
-			 "id":uuid.v4(),
-			 "name":"",
-			 "containers":[]
-		})
+	console.log('NEW SUITE PLEASE')
+	appState.suites.push(
+	{
+		 "id": uuid.v4(),
+		 "name": "",
+		 "containers": []
+	})
 };
 appState.loadSuite = function(id) {
-		console.log('lOAD SUITE PLEASE:' + id)
-		appState.currentSuite = id
+	console.log('lOAD SUITE PLEASE:' + id)
+	appState.currentSuite = id
 };
-appState.editSuite = function(thing) {
-		console.log('EDIT SUITE PLEASE:' + thing)
-		appState.suites[appState.currentSuiteIndex()].name = thing
+appState.editSuite = function(name) {
+    console.log('EDIT SUITE PLEASE:' + name)
+    appState.suites[appState.currentSuiteIndex()].name = name
+};
+
+appState.saveSuite = function() {
+    console.log('SAVE SUITE PLEASE!')
 };
 
 appState.currentSuiteIndex = function() {
-		let idx = undefined
-		appState.suites.find( (s,i) => {
-			if(s.id === appState.currentSuite) {
-				idx = i
-				return s
-			}
-			return false
-		});
-		return idx
+	let idx = undefined
+	appState.suites.find( (s,i) => {
+		if(s.id === appState.currentSuite) {
+			idx = i
+			return s
+		}
+		return false
+	});
+	return idx
+};
+appState.currentContainerIndex = function() {
+	let idx = 0
+    	//let suite  = appState.suites[appState.currentSuiteIndex()]
+    //let contIdx  = appState.currentSuiteIndex()
+    //suite.containers[appState.currentSuiteIndex()].find( (c,i) => {
+	//	if(c.id === appState.currentContainer) {
+	//		idx = i
+	//		return s
+	//	}
+	//	return false
+	//});
+	return idx
 };
 
 @observer

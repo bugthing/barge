@@ -1,7 +1,9 @@
 import React from 'react'
+import {observer} from 'mobservable-react'
 
 import FormWithChart from './FormWithChart'
 
+@observer
 class MainContent extends React.Component {
     static propTypes = {
     	app: React.PropTypes.object
