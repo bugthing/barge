@@ -1,15 +1,10 @@
 import React from 'react';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {connect} from 'react-redux';
 
-import SideBar from './SideBar';
-import MainContent from './MainContent';
+import {SideBarConnected} from './SideBar';
+import {Main} from './Main';
 
 const App = React.createClass({
     render: function() {
-
-		console.log( this.props.suites );
-
         return <div>
             <nav className="light-blue lighten-1" role="navigation">
               <div className="nav-wrapper container">
@@ -19,10 +14,10 @@ const App = React.createClass({
 
             <div className="row">
                    <div className="col s1">
-                           <SideBar />
+                           <SideBarConnected />
                    </div>
                    <div className="col s11">
-                           <MainContent />
+                           <Main />
                    </div>
             </div>
 
@@ -37,11 +32,4 @@ const App = React.createClass({
     }
 });
 
-function mapStateToProps(state) {
-  return {
-    suites: state.suites
-  };
-}
-
-
-export default connect(mapStateToProps)(App);
+export default App;
