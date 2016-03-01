@@ -5,7 +5,7 @@ import * as actionCreators from '../action_creators';
 
 const SideBarItem = React.createClass({
     render() {
-    	return <a href="#!" className="collection-item" onClick={this.props.loadSuite.bind(undefined, this.props.id)} >
+    	return <a href="#!" className="collection-item" onClick={this.props.loadSuite} >
           {this.props.name}
         </a>
 	}
@@ -13,14 +13,10 @@ const SideBarItem = React.createClass({
 
 const SideBar = React.createClass({
     render() {
-        var i = -1;
         var items = this.props.suites.map( (s) => {
-            i++;
-
             name = ' -- '
             if(s.name) name = s.name
-
-            return <SideBarItem key={s.id} name={name} id={s.id} loadSuite={this.props.loadSuite}/>
+            return <SideBarItem key={s.id} name={name} loadSuite={this.props.loadSuite.bind(undefined, s.id)}/>
         });
 
         return <div className="collection">
@@ -32,7 +28,7 @@ const SideBar = React.createClass({
 
 function mapStateToProps(state) {
   return {
-    suites: state.get('suites')
+    suites: state.get('suites').toJS()
   }
 }
 

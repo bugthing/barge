@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {SideBarConnected} from './SideBar';
-import {Main} from './Main';
+import {MainConnected} from './Main';
 
 const App = React.createClass({
     render: function() {
@@ -17,7 +17,7 @@ const App = React.createClass({
                            <SideBarConnected />
                    </div>
                    <div className="col s11">
-                           <Main />
+                           <MainConnected />
                    </div>
             </div>
 

@@ -8,7 +8,11 @@
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js 'test/**/*.@(jsx|js)'",
     "test:watch": "npm run test -- --watch --watch-extensions jsx"
   },
-  "keywords": ["container", "docker", "webapp"],
+  "keywords": [
+    "container",
+    "docker",
+    "webapp"
+  ],
   "author": "benjamin martin",
   "license": "MIT",
   "devDependencies": {
@@ -31,11 +35,12 @@
     ]
   },
   "dependencies": {
+    "belle": "^2.0.4",
     "immutable": "^3.7.6",
+    "node-uuid": "^1.4.7",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-redux": "^4.4.0",
-    "redux": "^3.3.1",
-    "node-uuid": "^1.4.7"
+    "redux": "^3.3.1"
   }
 }

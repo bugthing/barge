@@ -6,9 +6,15 @@ export function newSuite() {
 }
 
 export function loadSuite(id) {
-console.log('LOADDDDDDDDDDDDDDDDDDD:' + id);
   return {
     type: 'LOAD_SUITE',
     id: id
+  };
+}
+
+export function onSuiteNameChange(name) {
+  return {
+    type: 'UPDATE_SUITE_NAME',
+    name: name
   };
 }
