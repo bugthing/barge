@@ -5,7 +5,7 @@ import * as actionCreators from '../action_creators';
 
 const SideBarItem = React.createClass({
     render() {
-    	return <a href="#!" className="collection-item" onClick={this.props.loadSuite} >
+    	return <a href="#!" className="collection-item e2e-button-suite" onClick={this.props.loadSuite} >
           {this.props.name}
         </a>
 	}
@@ -21,7 +21,7 @@ const SideBar = React.createClass({
 
         return <div className="collection">
 			{items}
-    	    <a href="#!" className="collection-item" onClick={this.props.newSuite} > + </a>
+    	    <a href="#!" className="collection-item e2e-button-new-suite" onClick={this.props.newSuite} > + </a>
           </div>
     }
 });
