@@ -18,3 +18,22 @@ export function onSuiteNameChange(name) {
     name: name
   };
 }
+export function onContainerNameChange(name) {
+  return {
+    type: 'UPDATE_CONTAINER_NAME',
+    name: name
+  };
+}
+
+export function loadContainer(id) {
+  return {
+    type: 'LOAD_CONTAINER',
+    id: id
+  };
+}
+
+export function newLink() {
+  return {
+    type: 'NEW_LINK'
+  };
+}

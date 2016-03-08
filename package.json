@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "belle": "^2.0.4",
+    "d3": "^3.5.16",
     "immutable": "^3.7.6",
     "node-uuid": "^1.4.7",
     "react": "^0.14.7",
