@@ -69,7 +69,6 @@ let Graph = function(el, width, height) {
 	    links = force.links();
 
 	let update = () => {
-
 	    let link = vis.selectAll('line').data(links)
 
 	    link.enter().append('line')

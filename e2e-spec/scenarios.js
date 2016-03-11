@@ -6,31 +6,26 @@ describe('Barge App', function() {
     browser.ignoreSynchronization = true;
   });
 
-  it('passed the jasmine tests', function() {
-    browser.get('/test.html');
-    var e = element(by.css('span.passed'));
-    expect(e.getText()).toMatch('0 failures');
+  describe('start a suite', function() {
+
+    beforeEach(function() {
+      browser.get('/');
+    });
+
+    it('should render an form when start clicked', function() {
+        var e1 = element(by.css('a.e2e-button-new-suite'));
+        e1.click();
+        expect(e1.isDisplayed()).toBe(true);
+
+        var e2 = element(by.css('a.e2e-button-suite'));
+        expect(e2.getText()).toEqual('--');
+        e2.click();
+
+        var e3 = element(by.css('div.e2e-row-suite-name-input textarea'));
+        expect(e3.isDisplayed()).toBe(true);
+        e3.sendKeys('My First Suite');
+
+        expect(e2.getText()).toEqual('My First Suite');
+    });
   });
-
-    it('has a start button and that shows the chart', function() {
-        browser.get('/');
-        var e = element(by.css('a.e2e-startbutton'));
-        expect(e.getText()).toBe('START HERE');
-        e.click();
-        var e2 = element(by.css('div#chart'));
-        expect(e2.isDisplayed()).toBe(true);
-    });
-
-    describe('starting the forms', function() {
-    //  beforeEach(function() {
-    //    browser.get('index.html#/view1');
-    //  });
-        it('should render an form when start clicked', function() {
-            //var e = element(by.css('a.e2e-startbutton'));
-            //e.click();
-            //var e2 = element(by.css('div#chart'));
-            //expect(e2.isDisplayed()).toBe(true);
-            ////TODO: Added clicking of the next button
-        });
-    });
 });
