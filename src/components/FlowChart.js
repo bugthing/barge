@@ -35,8 +35,13 @@ export const FlowChart = React.createClass({
       };
     },
 
+    clickLinkHandler: function(graphNode) {
+      this.props.onLinkedContainerClick(graphNode.id);
+    },
+
     componentDidMount: function() {
       let chart = new Graph(ReactDOM.findDOMNode(this), this.props.width, this.props.height);
+      chart.nodeClick = this.clickLinkHandler;
       this.setState({chart: chart})
     },
 

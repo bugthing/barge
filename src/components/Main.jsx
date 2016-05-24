@@ -19,6 +19,9 @@ const Main = React.createClass({
     onLinkAdd: function(obj) {
       this.props.newLink();
     },
+    onLinkedContainerClick: function(id) {
+      this.props.loadContainer(id);
+    },
     render: function() {
 
       let val = '';
@@ -40,7 +43,7 @@ const Main = React.createClass({
 
         <div className="section no-pad-bot" id="index-banner">
           <div id='chart' className="container">
-            <FlowChart width={600} height={200} suite={this.props.suite} container={this.props.container}/>
+            <FlowChart width={600} height={200} suite={this.props.suite} container={this.props.container} onLinkedContainerClick={this.onLinkedContainerClick}/>
           </div>
         </div>
 

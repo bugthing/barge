@@ -29,7 +29,7 @@ export default function reducer(state = initial_state, action) {
   //case 'DELETE_SUITE':
   case 'LOAD_CONTAINER':
     let containerIndex;
-    obj.suites.containers.forEach(function(c,i) {
+    obj.suites[obj.suiteIndex].containers.forEach(function(c,i) {
 	  if(c.id === action.id) containerIndex = i
     });
 	obj.containerIndex = containerIndex;
