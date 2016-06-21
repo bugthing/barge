@@ -47,6 +47,16 @@ Run tests like so
 
     $ npm test
 
+Run end2end tests like so:
+
+.. start the webserver
+
+    $ npm start
+
+.. run the tests
+
+    $ npm run e2e
+
 References
 ----------
 
